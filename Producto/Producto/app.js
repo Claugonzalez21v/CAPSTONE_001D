@@ -268,7 +268,7 @@ async function procesarPago(){
 
         /* crear payment intent */
         const response = await fetch(
-            "http://localhost:3000/create-payment-intent",
+            "https://capstone-001d.onrender.com/create-payment-intent",
             {
                 method: "POST",
                 headers: {
