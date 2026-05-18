@@ -1,0 +1,66 @@
+body {
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: linear-gradient(180deg,#0f2027,#203a43,#2c5364);
+    font-family: Arial;
+}
+
+/* contenedor */
+.login-container {
+    width:100%;
+    display:flex;
+    justify-content:center;
+}
+
+/* caja blanca */
+.login-box {
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    width:300px;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.3);
+}
+
+/* título */
+.login-box h2 {
+    text-align:center;
+    color:#333;
+}
+
+/* inputs */
+input {
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:6px;
+    outline:none;
+}
+
+/* botón login */
+.btn-login {
+    background:#4c6ef5;
+    color:white;
+    border:none;
+    padding:12px;
+    border-radius:6px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+/* hover azul más intenso */
+.btn-login:hover {
+    background:#364fc7;
+}
+
+/* botón registro */
+.btn-register {
+    background:transparent;
+    border:none;
+    color:#4c6ef5;
+    cursor:pointer;
+}
