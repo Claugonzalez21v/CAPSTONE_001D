@@ -1,0 +1,88 @@
+CAPSTONE_001D 🚀
+
+Sistema web de reservas y pagos desarrollado como proyecto Capstone para la carrera de Ingeniería en Informática.
+
+---
+
+📌 Descripción del Proyecto
+
+CAPSTONE_001D es una plataforma web orientada a la gestión de reservas y pagos en línea, permitiendo a los usuarios:
+
+- Reservar servicios
+- Gestionar horarios
+- Realizar pagos mediante Stripe
+- Administrar información desde una interfaz web moderna
+
+El proyecto fue desarrollado aplicando metodologías ágiles Scrum y utilizando despliegue cloud.
+
+---
+ 👥 Integrantes
+
+- Claudio Gonzalez
+- Sebastián Álvarez
+
+---
+
+🛠 Tecnologías Utilizadas
+
+Frontend
+- HTML5
+- CSS3
+- JavaScript
+
+Backend
+- Node.js
+- Express.js
+
+ Base de Datos
+- JSON / almacenamiento local
+
+ Cloud & DevOps
+- GitHub
+- Netlify
+- Render
+
+ Pagos
+- Stripe API
+
+---
+ ☁️ Despliegue Cloud
+
+ Frontend (Netlify)
+
+https://capstone-reservafacil.netlify.app
+
+ Backend (Render)
+
+https://capstone-001d.onrender.com
+
+
+Clave: STRIPE_SECRET_KEY=sk_test_51Rxxxxxxx
+---
+
+ 📂 Estructura del Proyecto
+
+```bash
+Proyecto/
+│
+├── backend/
+├── frontend/
+├── node_modules/
+├── package.json
+├── package-lock.json
+├── README.md
+└── .gitignore
+
+
+
+
+---
+
+🚀 Después de crearlo
+
+Guarda el archivo y ejecuta:
+
+```bash
+git add .
+git commit -m "Agregado README profesional"
+git push
