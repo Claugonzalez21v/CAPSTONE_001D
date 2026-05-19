@@ -12,7 +12,7 @@ function login(){
 
         localStorage.removeItem("notifs");
 
-        window.location.href = "html.html";
+        window.location.href = "index.html";
 
     } else {
 
