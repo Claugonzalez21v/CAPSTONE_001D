@@ -37,7 +37,7 @@ app.post("/create-payment-intent", async(req,res)=>{
         await stripe.paymentIntents.create({
 
             amount,
-            currency:"CLP",
+            currency:"clp",
 
             automatic_payment_methods:{
                 enabled:true
@@ -118,14 +118,14 @@ app.post("/enviar-correo", async(req,res)=>{
 
 /* ===== SERVIDOR ===== */
 
+/* ===== SERVIDOR ===== */
+
 app.get("/", (req, res) => {
   res.send("Backend ReservaFacil funcionando correctamente");
 });
 
-app.listen(3000,()=>{
+const PORT = process.env.PORT || 3000;
 
-    console.log(
-        "Servidor corriendo en puerto 3000"
-    );
-
+app.listen(PORT, () => {
+    console.log("Servidor corriendo en puerto " + PORT);
 });
