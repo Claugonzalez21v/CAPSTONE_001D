@@ -37,7 +37,7 @@ app.post("/create-payment-intent", async(req,res)=>{
         await stripe.paymentIntents.create({
 
             amount,
-            currency:"usd",
+            currency:"CLP",
 
             automatic_payment_methods:{
                 enabled:true
@@ -117,6 +117,10 @@ app.post("/enviar-correo", async(req,res)=>{
 });
 
 /* ===== SERVIDOR ===== */
+
+app.get("/", (req, res) => {
+  res.send("Backend ReservaFacil funcionando correctamente");
+});
 
 app.listen(3000,()=>{
 
