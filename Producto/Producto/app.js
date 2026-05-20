@@ -347,7 +347,7 @@ async function procesarPago(){
                 try{
 
                     await fetch(
-                        "https://capstone-001d.onrender.com/create-payment-intent", /*"http://localhost:3000/enviar-correo",*/
+                        "https://capstone-001d.onrender.com/enviar-correo", "http://localhost:3000/enviar-correo",
                         {
 
                             method:"POST",
