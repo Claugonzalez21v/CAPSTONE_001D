@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+
+<link rel="stylesheet"
+href="{% static 'css/login.css' %}">
+
+</head>
+
+<body>
+
+<div class="login-container">
+
+<div class="login-box">
+
+<form method="POST" id="loginForm">
+
+{% csrf_token %}
+
+<h2>Iniciar Sesión</h2>
+
+<input
+type="text"
+name="user"
+id="user"
+placeholder="Usuario">
+
+<input
+type="password"
+name="pass"
+id="pass"
+placeholder="Contraseña">
+
+<button
+type="button"
+class="btn-login"
+onclick="login()">
+
+Iniciar sesión
+
+</button>
+
+<button
+type="button"
+class="btn-register"
+onclick="goRegister()">
+
+Registrarse
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+<script src="{% static 'js/login.js' %}"></script>
+
+</body>
+</html>
