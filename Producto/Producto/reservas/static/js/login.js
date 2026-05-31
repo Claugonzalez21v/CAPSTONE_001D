@@ -79,7 +79,7 @@ usuario
 
 window.location.href=
 
-"/app/";
+"/index/";
 
 }
 
@@ -101,6 +101,6 @@ sesion
 ){
 
 window.location.href=
-"/app/";
+"/index/";
 
 }
