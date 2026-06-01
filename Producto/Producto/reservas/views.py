@@ -116,20 +116,22 @@ def crearReserva(request):
 
         if form.is_valid():
 
-            reserva=form.save(
-                commit=False
-            )
+            reserva=form.save( commit=False )
 
             reserva.usuario=(
                 request.user
             )
 
-            reserva.precio=(
-                10
-                if reserva.servicio=="Completo"
-                else 5
-            )
+            lista_precios = {
+                "Caballero": 10000,
+                "Dama": 15000,
+                "Barba": 6000,
+                "Completo": 20000 }
 
+            lista_precios.get(
+            reserva.servicio,
+            0)
+            
             reserva.save()
 
             return redirect(

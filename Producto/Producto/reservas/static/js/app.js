@@ -1,159 +1,159 @@
 /* ===== VARIABLES ===== */
 
-let sesion=
+let sesion =
 
-sessionStorage.getItem(
-"sesionActiva"
-);
+    sessionStorage.getItem(
+        "sesionActiva"
+    );
 
-let user="Usuario";
+let user = "Usuario";
 
-let servicio="";
-let selectedDate="";
-let selectedHour="";
-let precio=0;
+let servicio = "";
+let selectedDate = "";
+let selectedHour = "";
+let precios = 0;
 
-let notificaciones=
+let notificaciones =
 
-JSON.parse(
-localStorage.getItem(
-"notificaciones"
-)
+    JSON.parse(
+        localStorage.getItem(
+            "notificaciones"
+        )
 
-)||[];
+    ) || [];
 
 /* ===== INICIO ===== */
 
 document.addEventListener(
-"DOMContentLoaded",
-()=>{
+    "DOMContentLoaded",
+    () => {
 
-sesion=
+        sesion =
 
-sessionStorage.getItem(
-"sesionActiva"
-);
+            sessionStorage.getItem(
+                "sesionActiva"
+            );
 
-if(
-!sesion
-){
+        if (
+            !sesion
+        ) {
 
-if(
+            if (
 
-!window.location.pathname.includes(
-"login"
-)
+                !window.location.pathname.includes(
+                    "login"
+                )
 
-&&
+                &&
 
-!window.location.pathname.includes(
-"registro"
-)
+                !window.location.pathname.includes(
+                    "registro"
+                )
 
-){
+            ) {
 
-window.location.href="/";
+                window.location.href = "/";
 
-return;
+                return;
 
-}
+            }
 
-}
+        }
 
-let nombre=
+        let nombre =
 
-document.getElementById(
-"user-name"
-);
+            document.getElementById(
+                "user-name"
+            );
 
-if(
-nombre
-){
+        if (
+            nombre
+        ) {
 
-nombre.innerText=
-sesion || "Usuario";
+            nombre.innerText =
+                sesion || "Usuario";
 
-}
+        }
 
-actualizarContador();
+        actualizarContador();
 
-inicializarCalendarios();
+        inicializarCalendarios();
 
-});
+    });
 
 
 /* ===== NOTIFICACIONES ===== */
 
-const notifBtn=
-document.getElementById(
-"notif"
-);
+const notifBtn =
+    document.getElementById(
+        "notif"
+    );
 
-const notifPanel=
-document.getElementById(
-"notif-panel"
-);
+const notifPanel =
+    document.getElementById(
+        "notif-panel"
+    );
 
-const notifCount=
-document.getElementById(
-"notif-count"
-);
-
-
-function actualizarContador(){
-
-if(notifCount){
-
-notifCount.innerText=
-notificaciones.length;
-
-}
-
-}
+const notifCount =
+    document.getElementById(
+        "notif-count"
+    );
 
 
-function agregarNotif(texto){
+function actualizarContador() {
 
-notificaciones.unshift({
+    if (notifCount) {
 
-texto,
-id:Date.now()
+        notifCount.innerText =
+            notificaciones.length;
 
-});
-
-localStorage.setItem(
-
-"notificaciones",
-
-JSON.stringify(
-notificaciones)
-
-);
-
-actualizarContador();
+    }
 
 }
 
 
-if(notifBtn){
+function agregarNotif(texto) {
 
-notifBtn.onclick=(e)=>{
+    notificaciones.unshift({
 
-e.stopPropagation();
+        texto,
+        id: Date.now()
 
-notifPanel.innerHTML="";
+    });
 
-if(notificaciones.length===0){
+    localStorage.setItem(
 
-notifPanel.innerHTML=
+        "notificaciones",
 
-"<div class='notif-item'>Sin notificaciones</div>";
+        JSON.stringify(
+            notificaciones)
 
-}else{
+    );
 
-notificaciones.forEach(n=>{
+    actualizarContador();
 
-notifPanel.innerHTML+=`
+}
+
+
+if (notifBtn) {
+
+    notifBtn.onclick = (e) => {
+
+        e.stopPropagation();
+
+        notifPanel.innerHTML = "";
+
+        if (notificaciones.length === 0) {
+
+            notifPanel.innerHTML =
+
+                "<div class='notif-item'>Sin notificaciones</div>";
+
+        } else {
+
+            notificaciones.forEach(n => {
+
+                notifPanel.innerHTML += `
 
 <div class="notif-item">
 
@@ -172,36 +172,36 @@ onclick="eliminarNotif(${n.id})">
 
 `;
 
-});
+            });
+
+        }
+
+        notifPanel.classList.toggle(
+            "show"
+        );
+
+    };
 
 }
 
-notifPanel.classList.toggle(
-"show"
-);
 
-};
+function eliminarNotif(id) {
 
-}
+    notificaciones =
+        notificaciones.filter(
+            x => x.id !== id
+        );
 
+    actualizarContador();
 
-function eliminarNotif(id){
+    localStorage.setItem(
+        "notificaciones",
+        JSON.stringify(notificaciones)
+    );
 
-notificaciones=
-notificaciones.filter(
-x=>x.id!==id
-);
+    notifBtn.click();
 
-actualizarContador();
-
-localStorage.setItem(
-"notificaciones",
-JSON.stringify(notificaciones)
-);
-
-notifBtn.click();
-
-notifBtn.click();
+    notifBtn.click();
 
 }
 
@@ -209,73 +209,73 @@ notifBtn.click();
 
 /* ===== MENU ===== */
 
-function cambiarVista(v,event){
+function cambiarVista(v, event) {
 
-document
-.querySelectorAll(
-".nav-item"
-)
-.forEach(x=>{
+    document
+        .querySelectorAll(
+            ".nav-item"
+        )
+        .forEach(x => {
 
-x.classList.remove(
-"active"
-);
+            x.classList.remove(
+                "active"
+            );
 
-});
-
-
-if(event){
-
-event.currentTarget
-.classList.add(
-"active"
-);
-
-}
+        });
 
 
-document
-.querySelectorAll(
-".vista"
-)
-.forEach(x=>{
+    if (event) {
 
-x.classList.add(
-"hidden"
-);
+        event.currentTarget
+            .classList.add(
+                "active"
+            );
 
-});
+    }
 
 
-let destino=
-document.getElementById(
-v
-);
+    document
+        .querySelectorAll(
+            ".vista"
+        )
+        .forEach(x => {
 
-if(destino){
+            x.classList.add(
+                "hidden"
+            );
 
-destino.classList.remove(
-"hidden"
-);
-
-}
-
-
-if(v==="reservas"){
-
-irPaso(1);
-
-}
+        });
 
 
-if(
-v==="agenda" &&
-typeof cerrarPopup==="function"
-){
+    let destino =
+        document.getElementById(
+            v
+        );
 
-cerrarPopup();
+    if (destino) {
 
-}
+        destino.classList.remove(
+            "hidden"
+        );
+
+    }
+
+
+    if (v === "reservas") {
+
+        irPaso(1);
+
+    }
+
+
+    if (
+        v === "agenda" &&
+        typeof cerrarPopup === "function"
+    ) {
+
+        cerrarPopup();
+
+    }
 
 }
 
@@ -283,147 +283,154 @@ cerrarPopup();
 
 /* ===== SERVICIO ===== */
 
-function seleccionarServicio(tipo){
+function seleccionarServicio(tipo) {
 
-servicio=tipo;
+    servicio = tipo;
 
-precio=
-tipo==="Completo"
-?
-10
-:
-5;
+    const listaPrecios = {
 
-document
-.querySelectorAll(
-".servicio-box"
-)
-.forEach(x=>{
+        "Caballero": 10000,
+        "Dama": 15000,
+        "Barba": 6000,
+        "Completo": 20000
 
-x.classList.remove(
-"active"
-);
+    };
 
-});
+    precios = listaPrecios[tipo];
+    console.log("Servicio:", tipo);
+    console.log("Precio:", precios);
 
-event.currentTarget
-.classList.add(
-"active"
-);
+    actualizarResumen();
 
-actualizarResumen();
+    document
+        .querySelectorAll(
+            ".servicio-box"
+        )
+        .forEach(x => {
+
+            x.classList.remove(
+                "active"
+            );
+
+        });
+
+    event.currentTarget
+        .classList.add(
+            "active"
+        );
+
+    actualizarResumen();
 
 }
-
 
 
 /* ===== HORA ===== */
 
-function selectHour(h){
+function selectHour(h) {
 
-selectedHour=h;
+    selectedHour = h;
 
-document
-.querySelectorAll(
-".hours button"
-)
-.forEach(x=>{
+    document
+        .querySelectorAll(
+            ".hours button"
+        )
+        .forEach(x => {
 
-x.classList.remove(
-"active"
-);
+            x.classList.remove(
+                "active"
+            );
 
-});
+        });
 
-event.currentTarget
-.classList.add(
-"active"
-);
+    event.currentTarget
+        .classList.add(
+            "active"
+        );
 
-actualizarResumen();
-
-}
-
-function actualizarHoras(){
-
-let botones=
-document.querySelectorAll(
-".hours button"
-);
-
-let ahora=
-new Date();
-
-let hoy=
-ahora.toLocaleDateString(
-"sv-SE"
-);
-
-botones.forEach(btn=>{
-
-btn.disabled=false;
-
-btn.style.background="";
-btn.style.opacity="1";
-
-let horaTexto=
-btn.innerText;
-
-let hora24=
-convertirHora(
-horaTexto
-);
-
-if(
-selectedDate===hoy
-){
-
-let horaActual=
-ahora.getHours();
-
-if(
-hora24<=horaActual
-){
-
-btn.disabled=true;
-
-btn.style.background=
-"#ff4444";
-
-btn.style.opacity=
-"0.6";
+    actualizarResumen();
 
 }
 
+function actualizarHoras() {
+
+    let botones =
+        document.querySelectorAll(
+            ".hours button"
+        );
+
+    let ahora =
+        new Date();
+
+    let hoy =
+        ahora.toLocaleDateString(
+            "sv-SE"
+        );
+
+    botones.forEach(btn => {
+
+        btn.disabled = false;
+
+        btn.style.background = "";
+        btn.style.opacity = "1";
+
+        let horaTexto =
+            btn.innerText;
+
+        let hora24 =
+            convertirHora(
+                horaTexto
+            );
+
+        if (
+            selectedDate === hoy
+        ) {
+
+            let horaActual =
+                ahora.getHours();
+
+            if (
+                hora24 <= horaActual
+            ) {
+
+                btn.disabled = true;
+
+                btn.style.background =
+                    "#ff4444";
+
+                btn.style.opacity =
+                    "0.6";
+
+            }
+
+        }
+
+    });
+
 }
 
-});
+function convertirHora(hora) {
 
-}
+    if (
+        hora.includes("9:")
+    )
+        return 9;
 
-function convertirHora(hora){
+    if (
+        hora.includes("10:")
+    )
+        return 10;
 
-if(
-hora.includes("9:")
-)
-return 9;
+    if (
+        hora.includes("11:")
+    )
+        return 11;
 
-if(
-hora.includes("10:")
-)
-return 10;
+    if (
+        hora.includes("2:")
+    )
+        return 14;
 
-if(
-hora.includes("11:")
-)
-return 11;
-
-if(
-hora.includes("2:")
-)
-return 14;
-
-return 0;
+    return 0;
 
 }
 
@@ -431,42 +438,42 @@ return 0;
 
 /* ===== RESUMEN ===== */
 
-function actualizarResumen(){
+function actualizarResumen() {
 
-document
-.getElementById(
-"res-servicio"
-)
-.innerText=
+    document
+        .getElementById(
+            "res-servicio"
+        )
+        .innerText =
 
-"Servicio: "+
-(
-servicio||"-"
-);
-
-
-document
-.getElementById(
-"res-fecha"
-)
-.innerText=
-
-"Fecha: "+
-(
-selectedDate||"-"
-);
+        "Servicio: " +
+        (
+            servicio || "-"
+        );
 
 
-document
-.getElementById(
-"res-hora"
-)
-.innerText=
+    document
+        .getElementById(
+            "res-fecha"
+        )
+        .innerText =
 
-"Hora: "+
-(
-selectedHour||"-"
-);
+        "Fecha: " +
+        (
+            selectedDate || "-"
+        );
+
+
+    document
+        .getElementById(
+            "res-hora"
+        )
+        .innerText =
+
+        "Hora: " +
+        (
+            selectedHour || "-"
+        );
 
 }
 
@@ -474,453 +481,156 @@ selectedHour||"-"
 
 /* ===== PASOS ===== */
 
-function irPaso(p){
+function irPaso(p) {
 
-if(
-p===2 &&
-!servicio
-){
+    if (
+        p === 2 &&
+        !servicio
+    ) {
 
-mostrarAlerta(
-"Selecciona un servicio"
-);
+        mostrarAlerta(
+            "Selecciona un servicio"
+        );
 
-return;
+        return;
 
-}
+    }
 
-if(
-p===3 &&
-(
-!selectedDate ||
-!selectedHour
-)
-){
+    if (
+        p === 3 &&
+        (
+            !selectedDate ||
+            !selectedHour
+        )
+    ) {
 
-mostrarAlerta(
-"Selecciona fecha y hora"
-);
+        mostrarAlerta(
+            "Selecciona fecha y hora"
+        );
 
-return;
+        return;
 
-}
-
-
-/* NUEVO */
-
-let tituloPaso="";
-
-if(p===1){
-
-tituloPaso=
-"Paso 1: Seleccionar Servicio";
-
-}
-
-if(p===2){
-
-tituloPaso=
-"Paso 2: Elegir Fecha y Hora";
-
-}
-
-if(p===3){
-
-tituloPaso=
-"Paso 3: Confirmar Reserva";
-
-}
-
-if(p===4){
-
-tituloPaso=
-"Paso 4: Reserva Confirmada";
-
-}
-
-document
-.querySelector(
-"#reservas h2"
-)
-.innerText=
-tituloPaso;
+    }
 
 
-/* LO DEMÁS SE QUEDA */
+    /* NUEVO */
 
-document
-.querySelectorAll(
-"#paso1,#paso2,#paso3,#paso4"
-)
-.forEach(x=>{
+    let tituloPaso = "";
 
-x.classList.add(
-"hidden"
-);
+    if (p === 1) {
 
-});
+        tituloPaso =
+            "Paso 1: Seleccionar Servicio";
+
+    }
+
+    if (p === 2) {
+
+        tituloPaso =
+            "Paso 2: Elegir Fecha y Hora";
+
+    }
+
+    if (p === 3) {
+
+        tituloPaso =
+            "Paso 3: Confirmar Reserva";
+
+    }
+
+    if (p === 4) {
+
+        tituloPaso =
+            "Paso 4: Reserva Confirmada";
+
+    }
+
+    document
+        .querySelector(
+            "#reservas h2"
+        )
+        .innerText =
+        tituloPaso;
 
 
-document
-.getElementById(
-"paso"+p
-)
-.classList.remove(
-"hidden"
-);
+    /* LO DEMÁS SE QUEDA */
+
+    document
+        .querySelectorAll(
+            "#paso1,#paso2,#paso3,#paso4"
+        )
+        .forEach(x => {
+
+            x.classList.add(
+                "hidden"
+            );
+
+        });
+
+
+    document
+        .getElementById(
+            "paso" + p
+        )
+        .classList.remove(
+            "hidden"
+        );
 
 }
 
 
 /* ===== CALENDARIOS ===== */
 
-function inicializarCalendarios(){
+function inicializarCalendarios() {
 
-let reserva=
-document.getElementById(
-"calendarInput"
-);
+    let reserva =
+        document.getElementById(
+            "calendarInput"
+        );
 
-if(reserva){
+    if (reserva) {
 
-flatpickr(
-reserva,
-{
-inline:true,
-defaultDate:"today",
-dateFormat:"Y-m-d",
-minDate:"today",
-
-onReady(selectedDates){
-
-if(selectedDates.length){
-
-selectedDate=
-
-selectedDates[0]
-.toLocaleDateString(
-"sv-SE"
-);
-
-}
-
-actualizarResumen();
-actualizarHoras();
-
-},
-
-onChange(selectedDates){
-
-if(selectedDates.length){
-
-selectedDate=
-
-selectedDates[0]
-.toLocaleDateString(
-"sv-SE"
-);
-
-}
-
-actualizarResumen();
-actualizarHoras();
-
-}
-
-}
-
-);
-
-}
-
-
-let agenda=
-document.getElementById(
-"agendaCalendar"
-);
-
-if(agenda){
-
-if(
-agenda._flatpickr
-){
-
-agenda._flatpickr.destroy();
-
-}
-
-fetch("/calendario/")
-.then(r=>r.json())
-.then(data=>{
-
-const reservas=
-data.reservas;
-
-flatpickr(
-agenda,
-{
-
-inline:true,
-
-dateFormat:"Y-m-d",
-
-onDayCreate(
-dObj,
-dStr,
-fp,
-dayElem
-){
-
-let fecha=
-
-dayElem.dateObj
-.toLocaleDateString(
-"sv-SE"
-);
-
-let reserva=
-
-reservas.find(
-r=>r.fecha===fecha
-);
-
-if(!reserva)
-return;
-
-
-if(
-!reserva.cumplida
-){
-
-dayElem.style.background=
-"#ff4444";
-
-}
-
-else{
-
-dayElem.style.background=
-"#2ecc71";
-
-}
-
-dayElem.style.color=
-"white";
-
-dayElem.style.borderRadius=
-"50%";
-
-dayElem.style.cursor=
-"pointer";
-
-dayElem.onclick=()=>{
-
-abrirReserva(
-reserva
-);
-
-};
-
-}
-
-}
-
-);
-
-});
-
-}
-
-
-flatpickr(
-agenda,
-{
-
-inline:true,
-
-dateFormat:"Y-m-d",
-
-onDayCreate(
-dObj,
-dStr,
-fp,
-dayElem
-){
-
-let fecha=
-
-dayElem.dateObj
-.toLocaleDateString(
-"sv-SE"
-);
-
-let reserva=
-
-reservas.find(
-r=>r.fecha===fecha
-);
-
-if(!reserva)
-return;
-
-
-/* rojo pendiente */
-
-if(
-!reserva.cumplida
-){
-
-dayElem.style.background=
-"#ff4444";
-
-}
-
-/* verde completada */
-
-else{
-
-dayElem.style.background=
-"#2ecc71";
-
-}
-
-dayElem.style.color=
-"white";
-
-dayElem.style.borderRadius=
-"50%";
-
-dayElem.style.cursor=
-"pointer";
-
-dayElem.onclick=()=>{
-
-abrirReserva(
-reserva
-);
-
-};
-
-}
-
-}
-
-);
-
-}
-
-
-/* ===== POPUP RESERVA ===== */
-
-let reservaSeleccionada=null;
-
-
-function abrirReserva(data){
-
-if(!data)
-return;
-
-reservaSeleccionada=data;
-
-
-document
-.getElementById(
-"popupServicio"
-)
-.innerText=
-"Servicio: "+
-(data.servicio||"-");
-
-
-document
-.getElementById(
-"popupFecha"
-)
-.innerText=
-"Fecha: "+
-(data.fecha||"-");
-
-
-document
-.getElementById(
-"popupHora"
-)
-.innerText=
-"Hora: "+
-(data.hora||"-");
-
-
-document
-.getElementById(
-"popupPrecio"
-)
-.innerText=
-"Precio: $"+
-(data.precio||0);
-
-
-document
-.getElementById(
-"popupFondo"
-)
-.classList.remove(
-"hidden"
-);
-
-
-document
-.getElementById(
-"infoReserva"
-)
-.classList.remove(
-"hidden"
-);
-
-}
-
-function cerrarPopup(){
-
-document
-.getElementById(
-"infoReserva"
-)
-.classList.add(
-"hidden"
-);
-
-document
-.getElementById(
-"popupFondo"
-)
-.classList.add(
-"hidden"
-);
-
-}
-
-
-
-async function confirmarEliminar(){
-
-    if(!reservaSeleccionada)
-    return;
-
-    try{
-
-        const response=
-        await fetch(
-
-            `/eliminar/${reservaSeleccionada.id}/`,
+        flatpickr(
+            reserva,
             {
+                inline: true,
+                defaultDate: "today",
+                dateFormat: "Y-m-d",
+                minDate: "today",
 
-                method:"DELETE",
+                onReady(selectedDates) {
 
-                headers:{
+                    if (selectedDates.length) {
 
-                    "X-CSRFToken":
-                    getCookie(
-                        "csrftoken"
-                    )
+                        selectedDate =
+
+                            selectedDates[0]
+                                .toLocaleDateString(
+                                    "sv-SE"
+                                );
+
+                    }
+
+                    actualizarResumen();
+                    actualizarHoras();
+
+                },
+
+                onChange(selectedDates) {
+
+                    if (selectedDates.length) {
+
+                        selectedDate =
+
+                            selectedDates[0]
+                                .toLocaleDateString(
+                                    "sv-SE"
+                                );
+
+                    }
+
+                    actualizarResumen();
+                    actualizarHoras();
 
                 }
 
@@ -928,10 +638,306 @@ async function confirmarEliminar(){
 
         );
 
-        const data=
-        await response.json();
+    }
 
-        if(data.ok){
+
+    let agenda =
+        document.getElementById(
+            "agendaCalendar"
+        );
+
+    if (agenda) {
+
+        if (
+            agenda._flatpickr
+        ) {
+
+            agenda._flatpickr.destroy();
+
+        }
+
+        fetch("/calendario/")
+            .then(r => r.json())
+            .then(data => {
+
+                const reservas =
+                    data.reservas;
+
+                flatpickr(
+                    agenda,
+                    {
+
+                        inline: true,
+
+                        dateFormat: "Y-m-d",
+
+                        onDayCreate(
+                            dObj,
+                            dStr,
+                            fp,
+                            dayElem
+                        ) {
+
+                            let fecha =
+
+                                dayElem.dateObj
+                                    .toLocaleDateString(
+                                        "sv-SE"
+                                    );
+
+                            let reserva =
+
+                                reservas.find(
+                                    r => r.fecha === fecha
+                                );
+
+                            if (!reserva)
+                                return;
+
+
+                            if (
+                                !reserva.cumplida
+                            ) {
+
+                                dayElem.style.background =
+                                    "#ff4444";
+
+                            }
+
+                            else {
+
+                                dayElem.style.background =
+                                    "#2ecc71";
+
+                            }
+
+                            dayElem.style.color =
+                                "white";
+
+                            dayElem.style.borderRadius =
+                                "50%";
+
+                            dayElem.style.cursor =
+                                "pointer";
+
+                            dayElem.onclick = () => {
+
+                                abrirReserva(
+                                    reserva
+                                );
+
+                            };
+
+                        }
+
+                    }
+
+                );
+
+            });
+
+    }
+
+
+    flatpickr(
+        agenda,
+        {
+
+            inline: true,
+
+            dateFormat: "Y-m-d",
+
+            onDayCreate(
+                dObj,
+                dStr,
+                fp,
+                dayElem
+            ) {
+
+                let fecha =
+
+                    dayElem.dateObj
+                        .toLocaleDateString(
+                            "sv-SE"
+                        );
+
+                let reserva =
+
+                    reservas.find(
+                        r => r.fecha === fecha
+                    );
+
+                if (!reserva)
+                    return;
+
+
+                /* rojo pendiente */
+
+                if (
+                    !reserva.cumplida
+                ) {
+
+                    dayElem.style.background =
+                        "#ff4444";
+
+                }
+
+                /* verde completada */
+
+                else {
+
+                    dayElem.style.background =
+                        "#2ecc71";
+
+                }
+
+                dayElem.style.color =
+                    "white";
+
+                dayElem.style.borderRadius =
+                    "50%";
+
+                dayElem.style.cursor =
+                    "pointer";
+
+                dayElem.onclick = () => {
+
+                    abrirReserva(
+                        reserva
+                    );
+
+                };
+
+            }
+
+        }
+
+    );
+
+}
+
+
+/* ===== POPUP RESERVA ===== */
+
+let reservaSeleccionada = null;
+
+
+function abrirReserva(data) {
+
+    if (!data)
+        return;
+
+    reservaSeleccionada = data;
+
+
+    document
+        .getElementById(
+            "popupServicio"
+        )
+        .innerText =
+        "Servicio: " +
+        (data.servicio || "-");
+
+
+    document
+        .getElementById(
+            "popupFecha"
+        )
+        .innerText =
+        "Fecha: " +
+        (data.fecha || "-");
+
+
+    document
+        .getElementById(
+            "popupHora"
+        )
+        .innerText =
+        "Hora: " +
+        (data.hora || "-");
+
+
+    document
+        .getElementById(
+            "popupPrecio"
+        )
+        .innerText =
+        "Precio: $" +
+        Number(data.precio).toLocaleString("es-CL");
+
+    document
+        .getElementById(
+            "popupFondo"
+        )
+        .classList.remove(
+            "hidden"
+        );
+
+
+    document
+        .getElementById(
+            "infoReserva"
+        )
+        .classList.remove(
+            "hidden"
+        );
+
+}
+
+function cerrarPopup() {
+
+    document
+        .getElementById(
+            "infoReserva"
+        )
+        .classList.add(
+            "hidden"
+        );
+
+    document
+        .getElementById(
+            "popupFondo"
+        )
+        .classList.add(
+            "hidden"
+        );
+
+}
+
+
+
+async function confirmarEliminar() {
+
+    if (!reservaSeleccionada)
+        return;
+
+    try {
+
+        const response =
+            await fetch(
+
+                `/eliminar/${reservaSeleccionada.id}/`,
+                {
+
+                    method: "DELETE",
+
+                    headers: {
+
+                        "X-CSRFToken":
+                            getCookie(
+                                "csrftoken"
+                            )
+
+                    }
+
+                }
+
+            );
+
+        const data =
+            await response.json();
+
+        if (data.ok) {
 
             cerrarPopup();
 
@@ -945,7 +951,7 @@ async function confirmarEliminar(){
 
     }
 
-    catch(error){
+    catch (error) {
 
         console.log(
             error
@@ -956,96 +962,92 @@ async function confirmarEliminar(){
 }
 /* ===== PAGO ===== */
 
-function abrirPago(){
+function abrirPago() {
 
-document
-.getElementById(
-"pagoModal"
-)
-.classList.add(
-"active"
-);
+    document
+        .getElementById(
+            "pagoModal"
+        )
+        .classList.add(
+            "active"
+        );
 
-document
-.getElementById(
-"pagoTotal"
-)
-.innerText=
-"$"+precio;
+    document.getElementById("pagoTotal").innerText =
+"$" + precios.toLocaleString("es-CL");
 
 
-/* restaurar formulario */
+    /* restaurar formulario */
 
-document
-.getElementById(
-"tarjeta"
-)
-.style.display=
-"block";
+    document
+        .getElementById(
+            "tarjeta"
+        )
+        .style.display =
+        "block";
 
-document
-.getElementById(
-"fechaPago"
-)
-.style.display=
-"block";
+    document
+        .getElementById(
+            "fechaPago"
+        )
+        .style.display =
+        "block";
 
-document
-.getElementById(
-"cvv"
-)
-.style.display=
-"block";
+    document
+        .getElementById(
+            "cvv"
+        )
+        .style.display =
+        "block";
 
-document
-.getElementById(
-"btnPagar"
-)
-.style.display=
-"block";
+    document
+        .getElementById(
+            "btnPagar"
+        )
+        .style.display =
+        "block";
 
-document
-.querySelector(
-".cancel"
-)
-.style.display=
-"block";
+    document
+        .querySelector(
+            ".cancel"
+        )
+        .style.display =
+        "block";
 
-document
-.getElementById(
-"btnPagar"
-)
-.disabled=false;
-
-
-/* limpiar campos */
-
-document
-.getElementById(
-"tarjeta"
-)
-.value="";
-
-document
-.getElementById(
-"fechaPago"
-)
-.value="";
-
-document
-.getElementById(
-"cvv"
-)
-.value="";
+    document
+        .getElementById(
+            "btnPagar"
+        )
+        .disabled = false;
 
 
-/* limpiar contenido viejo */
+    /* limpiar campos */
 
-document
-.getElementById(
-"animacionPago"
-)
-.innerHTML="";
+    document
+        .getElementById(
+            "tarjeta"
+        )
+        .value = "";
+
+    document
+        .getElementById(
+            "fechaPago"
+        )
+        .value = "";
+
+    document
+        .getElementById(
+            "cvv"
+        )
+        .value = "";
+
+
+    /* limpiar contenido viejo */
+
+    document
+        .getElementById(
+            "animacionPago"
+        )
+        .innerHTML = "";
 
 }
 
@@ -1053,161 +1055,161 @@ document
 /* VALIDACIONES */
 
 document.addEventListener(
-"input",
-(e)=>{
+    "input",
+    (e) => {
 
-if(e.target.id==="tarjeta"){
+        if (e.target.id === "tarjeta") {
 
-e.target.value=
-e.target.value
-.replace(/\D/g,"")
-.slice(0,16);
+            e.target.value =
+                e.target.value
+                    .replace(/\D/g, "")
+                    .slice(0, 16);
 
-}
+        }
 
-if(
-e.target.id==="cvv"
-){
+        if (
+            e.target.id === "cvv"
+        ) {
 
-e.target.value=
-e.target.value
-.replace(/\D/g,"")
-.slice(0,3);
+            e.target.value =
+                e.target.value
+                    .replace(/\D/g, "")
+                    .slice(0, 3);
 
-}
+        }
 
-if(
-e.target.id==="fechaPago"
-){
+        if (
+            e.target.id === "fechaPago"
+        ) {
 
-let valor=
-e.target.value
-.replace(/\D/g,"");
+            let valor =
+                e.target.value
+                    .replace(/\D/g, "");
 
-if(
-valor.length>2
-){
+            if (
+                valor.length > 2
+            ) {
 
-valor=
-valor.slice(0,2)
-+"/"+
-valor.slice(2,6);
+                valor =
+                    valor.slice(0, 2)
+                    + "/" +
+                    valor.slice(2, 6);
 
-}
+            }
 
-e.target.value=
-valor.slice(0,7);
+            e.target.value =
+                valor.slice(0, 7);
 
-}
+        }
 
-});
-
-
-
-function cerrarPago(){
-
-document
-.getElementById("pagoModal")
-.classList.remove("active");
-
-}
+    });
 
 
-function procesarPago(){
 
-let tarjeta=
-document
-.getElementById(
-"tarjeta"
-).value;
+function cerrarPago() {
 
-let fecha=
-document
-.getElementById(
-"fechaPago"
-).value;
-
-let cvv=
-document
-.getElementById(
-"cvv"
-).value;
-
-
-if(
-!tarjeta ||
-!fecha ||
-!cvv
-){
-
-mostrarAlerta(
-"Completa todos los campos"
-);
-
-return;
+    document
+        .getElementById("pagoModal")
+        .classList.remove("active");
 
 }
 
-let animacion=
-document.getElementById(
-"animacionPago"
-);
 
-animacion.innerHTML=
+function procesarPago() {
 
-`<div class="loader"></div>
+    let tarjeta =
+        document
+            .getElementById(
+                "tarjeta"
+            ).value;
+
+    let fecha =
+        document
+            .getElementById(
+                "fechaPago"
+            ).value;
+
+    let cvv =
+        document
+            .getElementById(
+                "cvv"
+            ).value;
+
+
+    if (
+        !tarjeta ||
+        !fecha ||
+        !cvv
+    ) {
+
+        mostrarAlerta(
+            "Completa todos los campos"
+        );
+
+        return;
+
+    }
+
+    let animacion =
+        document.getElementById(
+            "animacionPago"
+        );
+
+    animacion.innerHTML =
+
+        `<div class="loader"></div>
 <p>Procesando pago...</p>`;
 
-document
-.getElementById(
-"btnPagar"
-)
-.disabled=true;
+    document
+        .getElementById(
+            "btnPagar"
+        )
+        .disabled = true;
 
 
-setTimeout(()=>{
+    setTimeout(() => {
 
-/* ocultar formulario */
+        /* ocultar formulario */
 
-document
-.getElementById(
-"tarjeta"
-)
-.style.display=
-"none";
+        document
+            .getElementById(
+                "tarjeta"
+            )
+            .style.display =
+            "none";
 
-document
-.getElementById(
-"fechaPago"
-)
-.style.display=
-"none";
+        document
+            .getElementById(
+                "fechaPago"
+            )
+            .style.display =
+            "none";
 
-document
-.getElementById(
-"cvv"
-)
-.style.display=
-"none";
+        document
+            .getElementById(
+                "cvv"
+            )
+            .style.display =
+            "none";
 
-document
-.getElementById(
-"btnPagar"
-)
-.style.display=
-"none";
+        document
+            .getElementById(
+                "btnPagar"
+            )
+            .style.display =
+            "none";
 
-document
-.querySelector(
-".cancel"
-)
-.style.display=
-"none";
+        document
+            .querySelector(
+                ".cancel"
+            )
+            .style.display =
+            "none";
 
 
-/* mostrar confirmación */
+        /* mostrar confirmación */
 
-animacion.innerHTML=`
+        animacion.innerHTML = `
 
 <div class="check"></div>
 
@@ -1228,7 +1230,7 @@ ${selectedHour}
 </p>
 
 <p>
-$${precio}
+$${precios.toLocaleString("es-CL")}
 </p>
 
 <button
@@ -1244,154 +1246,154 @@ Ir a mis agendas
 
 
 
-/* guardar nueva */
+        /* guardar nueva */
 
-fetch(
-"/guardar/",
-{
+        fetch(
+            "/guardar/",
+            {
 
-method:"POST",
+                method: "POST",
 
-headers:{
+                headers: {
 
-"Content-Type":
-"application/json"
+                    "Content-Type":
+                        "application/json"
 
-},
+                },
 
-body:JSON.stringify({
+                body: JSON.stringify({
 
-servicio:
-servicio,
+                    servicio:
+                        servicio,
 
-fecha:
-selectedDate,
+                    fecha:
+                        selectedDate,
 
-hora:
-selectedHour,
+                    hora:
+                        selectedHour,
 
-precio:
-precio
+                    precio:
+                        precios
 
-})
+                })
+
+            }
+
+        )
+            .then(
+                r => r.json()
+            )
+            .then(data => {
+
+                console.log(
+                    "Reserva guardada",
+                    data
+                );
+
+                agregarNotif(
+
+                    "Reserva creada para " +
+                    selectedDate +
+                    " a las " +
+                    selectedHour
+
+                );
+
+                inicializarCalendarios();
+
+            });
+
+
+        /* redibujar calendario */
+
+
+        inicializarCalendarios();
+
+    }, 2500);
 
 }
 
-)
-.then(
-r=>r.json()
-)
-.then(data=>{
 
-console.log(
-"Reserva guardada",
-data
-);
+function irAgenda() {
 
-agregarNotif(
+    cerrarPago();
 
-"Reserva creada para "+
-selectedDate+
-" a las "+
-selectedHour
+    /* ocultar vistas */
 
-);
+    document
+        .querySelectorAll(
+            ".vista"
+        )
+        .forEach(x => {
 
-inicializarCalendarios();
+            x.classList.add(
+                "hidden"
+            );
 
-});
+        });
 
+    /* mostrar agenda */
 
-/* redibujar calendario */
+    document
+        .getElementById(
+            "agenda"
+        )
+        .classList.remove(
+            "hidden"
+        );
 
+    /* activar menú */
 
-inicializarCalendarios();
+    document
+        .querySelectorAll(
+            ".nav-item"
+        )
+        .forEach(x => {
 
-},2500);
+            x.classList.remove(
+                "active"
+            );
 
-}
+        });
 
-
-function irAgenda(){
-
-cerrarPago();
-
-/* ocultar vistas */
-
-document
-.querySelectorAll(
-".vista"
-)
-.forEach(x=>{
-
-x.classList.add(
-"hidden"
-);
-
-});
-
-/* mostrar agenda */
-
-document
-.getElementById(
-"agenda"
-)
-.classList.remove(
-"hidden"
-);
-
-/* activar menú */
-
-document
-.querySelectorAll(
-".nav-item"
-)
-.forEach(x=>{
-
-x.classList.remove(
-"active"
-);
-
-});
-
-document
-.querySelectorAll(
-".nav-item"
-)[2]
-.classList.add(
-"active"
-);
+    document
+        .querySelectorAll(
+            ".nav-item"
+        )[2]
+        .classList.add(
+            "active"
+        );
 
 
-/* limpiar y redibujar */
+    /* limpiar y redibujar */
 
-inicializarCalendarios();
+    inicializarCalendarios();
 
 }
 
 /* ===== ALERTA ===== */
 
-function mostrarAlerta(texto){
+function mostrarAlerta(texto) {
 
-let alerta=
-document.createElement(
-"div"
-);
+    let alerta =
+        document.createElement(
+            "div"
+        );
 
-alerta.className=
-"alerta-personalizada";
+    alerta.className =
+        "alerta-personalizada";
 
-alerta.innerText=
-texto;
+    alerta.innerText =
+        texto;
 
-document.body.appendChild(
-alerta
-);
+    document.body.appendChild(
+        alerta
+    );
 
-setTimeout(
-()=>alerta.remove(),
-3000
-);
+    setTimeout(
+        () => alerta.remove(),
+        3000
+    );
 
 }
 
@@ -1399,62 +1401,62 @@ setTimeout(
 
 /* ===== ELIMINAR ===== */
 
-function eliminarReserva(btn){
+function eliminarReserva(btn) {
 
-let confirmar=
-confirm(
-"¿Está seguro de eliminar la agenda?"
-);
+    let confirmar =
+        confirm(
+            "¿Está seguro de eliminar la agenda?"
+        );
 
-if(confirmar){
+    if (confirmar) {
 
-btn
-.closest(".agenda-card")
-.remove();
+        btn
+            .closest(".agenda-card")
+            .remove();
 
-mostrarAlerta(
-"Agenda eliminada"
-);
+        mostrarAlerta(
+            "Agenda eliminada"
+        );
 
-}
+    }
 
 }
 
 
 /* ===== LOGOUT ===== */
 
-function logout(){
+function logout() {
 
-sessionStorage.removeItem(
-"sesionActiva"
-);
-
-window.location.href="/";
-
-}
-
-function cambiarRegistro(){
-
-window.location.href=
-"/registro/";
-
-}
-
-function getCookie(nombre){
-
-    let valor=`; ${document.cookie}`;
-
-    let partes=
-    valor.split(
-        `; ${nombre}=`
+    sessionStorage.removeItem(
+        "sesionActiva"
     );
 
-    if(partes.length===2){
+    window.location.href = "/";
+
+}
+
+function cambiarRegistro() {
+
+    window.location.href =
+        "/registro/";
+
+}
+
+function getCookie(nombre) {
+
+    let valor = `; ${document.cookie}`;
+
+    let partes =
+        valor.split(
+            `; ${nombre}=`
+        );
+
+    if (partes.length === 2) {
 
         return partes
-        .pop()
-        .split(";")
-        .shift();
+            .pop()
+            .split(";")
+            .shift();
 
     }
 

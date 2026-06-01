@@ -4,447 +4,407 @@
 
 <head>
 
-<meta charset="UTF-8">
-<title>Barbería</title>
+    <meta charset="UTF-8">
+    <title>Barbería</title>
 
-<link rel="stylesheet"
-href="{% static 'css/app.css' %}">
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
 
-<link rel="stylesheet"
-href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-<script src="https://js.stripe.com/v3/"></script>
+    <script src="https://js.stripe.com/v3/"></script>
 
 </head>
 
 <body>
 
-<div class="container">
+    <div class="container">
 
-<aside class="sidebar">
+        <aside class="sidebar">
 
-<h2>Menú</h2>
+            <h2>Menú</h2>
 
-<div
-class="nav-item active"
-onclick="cambiarVista('panel',event)">
+            <div class="nav-item active" onclick="cambiarVista('panel',event)">
 
-Panel Principal
+                Panel Principal
 
-</div>
+            </div>
 
-<div
-class="nav-item"
-onclick="cambiarVista('reservas',event)">
+            <div class="nav-item" onclick="cambiarVista('reservas',event)">
 
-Reservas
+                Reservas
 
-</div>
+            </div>
 
-<div
-class="nav-item"
-onclick="cambiarVista('agenda',event)">
+            <div class="nav-item" onclick="cambiarVista('agenda',event)">
 
-Agenda de Hoy
+                Agenda de Hoy
 
-</div>
+            </div>
 
-<div
-class="nav-item logout"
-onclick="logout()">
+            <div class="nav-item logout" onclick="logout()">
 
-Cerrar sesión
+                Cerrar sesión
 
-</div>
+            </div>
 
-</aside>
+        </aside>
 
 
-<div class="main">
+        <div class="main">
 
-<header>
+            <header>
 
-<h2 id="titulo">
+                <h2 id="titulo">
 
-Panel Principal
+                    Panel Principal
 
-</h2>
+                </h2>
 
-<div class="header-right">
+                <div class="header-right">
 
-<div id="notif">
+                    <div id="notif">
 
-🔔
-<span id="notif-count">
+                        🔔
+                        <span id="notif-count">
 
-0
+                            0
 
-</span>
+                        </span>
 
-</div>
+                    </div>
 
-<div id="user-name">
+                    <div id="user-name">
 
-Usuario
+                        Usuario
 
-</div>
+                    </div>
 
-</div>
+                </div>
 
-</header>
+            </header>
 
-<div
-id="notif-panel"
-class="notif-panel">
+            <div id="notif-panel" class="notif-panel">
 
-</div>
+            </div>
 
 
-<div class="content">
+            <div class="content">
 
-<!-- PANEL -->
+                <!-- PANEL -->
 
-<div
-id="panel"
-class="vista">
+                <div id="panel" class="vista">
 
-<h2>
+                    <h2>
 
-Inserte nombre de barbería
+                        Inserte nombre de barbería
 
-</h2>
+                    </h2>
 
-<p>
+                    <p>
 
-Haga su reserva para un corte de calidad garantizada.
+                        Haga su reserva para un corte de calidad garantizada.
 
-</p>
+                    </p>
 
-</div>
+                </div>
 
 
-<!-- RESERVAS -->
+                <!-- RESERVAS -->
 
-<div
-id="reservas"
-class="vista hidden">
+                <div id="reservas" class="vista hidden">
 
-<h2>
+                    <h2>
 
-Paso 1: Seleccionar Servicio
+                        Paso 1: Seleccionar Servicio
 
-</h2>
+                    </h2>
 
-<div id="paso1">
+                    <div id="paso1">
 
-<h3>
+                        <h3>
 
-Selecciona un servicio
+                            Selecciona un servicio
 
-</h3>
+                        </h3>
 
-<div
-class="servicio-box"
-onclick="seleccionarServicio('Caballero')">
+                        <div class="servicio-box" onclick="seleccionarServicio('Caballero')">
 
-✂️ Caballero
+                            ✂️ Caballero
 
-<span>$5</span>
+                            <span>$ 10.000</span>
 
-</div>
+                        </div>
 
-<div
-class="servicio-box"
-onclick="seleccionarServicio('Dama')">
+                        <div class="servicio-box" onclick="seleccionarServicio('Dama')">
 
-✂️ Dama
+                            ✂️ Dama
 
-<span>$5</span>
+                            <span>$ 15.000</span>
 
-</div>
+                        </div>
 
-<div
-class="servicio-box"
-onclick="seleccionarServicio('Barba')">
+                        <div class="servicio-box" onclick="seleccionarServicio('Barba')">
 
-🧔 Barba
+                            🧔 Barba
 
-<span>$5</span>
+                            <span>$ 6.000</span>
 
-</div>
+                        </div>
 
-<div
-class="servicio-box"
-onclick="seleccionarServicio('Completo')">
+                        <div class="servicio-box" onclick="seleccionarServicio('Completo')">
 
-💈 Completo
+                            💈 Completo
 
-<span>$10</span>
+                            <span>$ 20.000</span>
 
-</div>
+                        </div>
 
-<button
-class="btn-next"
-onclick="irPaso(2)">
+                        <button class="btn-next" onclick="irPaso(2)">
 
-Siguiente →
+                            Siguiente →
 
-</button>
+                        </button>
 
-</div>
+                    </div>
 
 
 
-<div
-id="paso2"
-class="hidden">
+                    <div id="paso2" class="hidden">
 
-<h3>
+                        <h3>
 
-Elegir Fecha y Hora
+                            Elegir Fecha y Hora
 
-</h3>
+                        </h3>
 
-<div
-class="fecha-hora-container">
+                        <div class="fecha-hora-container">
 
-<div class="calendar-area">
+                            <div class="calendar-area">
 
-<input
-id="calendarInput"
-type="text">
+                                <input id="calendarInput" type="text" input>
 
-</div>
+                            </div>
 
-<div class="hours">
+                            <div class="hours">
 
-<button onclick="selectHour('09:00')">
+                                <button onclick="selectHour('09:00')">
 
-9:00 AM
+                                    9:00 AM
 
-</button>
+                                </button>
 
-<button onclick="selectHour('10:00')">
+                                <button onclick="selectHour('10:00')">
 
-10:00 AM
+                                    10:00 AM
 
-</button>
+                                </button>
 
-<button onclick="selectHour('11:00')">
+                                <button onclick="selectHour('11:00')">
 
-11:00 AM
+                                    11:00 AM
 
-</button>
+                                </button>
 
-<button onclick="selectHour('14:00')">
+                                <button onclick="selectHour('14:00')">
 
-2:00 PM
+                                    2:00 PM
 
-</button>
+                                </button>
 
-</div>
+                                <button onclick="selectHour('15:00')">
 
-</div>
+                                    3:00 PM
 
-<button
-class="btn-next"
-onclick="irPaso(3)">
+                                </button>
 
-Siguiente →
+                                <button onclick="selectHour('16:00')">
 
-</button>
+                                    4:00 PM
 
-</div>
+                                </button>
 
+                                <button onclick="selectHour('17:00')">
 
-<div
-id="paso3"
-class="hidden">
+                                    5:00 PM
 
-<h3>
+                                </button>
 
-Confirmar reserva
+                            </div>
 
-</h3>
+                        </div>
 
-<div class="confirm-box">
+                        <button class="btn-next" onclick="irPaso(3)">
 
-<p id="res-servicio"></p>
-<p id="res-fecha"></p>
-<p id="res-hora"></p>
+                            Siguiente →
 
-</div>
+                        </button>
 
-<button
-class="btn-confirm"
-onclick="abrirPago()">
+                    </div>
 
-Pagar 💳
 
-</button>
+                    <div id="paso3" class="hidden">
 
-</div>
+                        <h3>
 
+                            Confirmar reserva
 
-<div
-id="paso4"
-class="hidden">
+                        </h3>
 
-<h2>
+                        <div class="confirm-box">
 
-✔ Reserva Confirmada
+                            <p id="res-servicio"></p>
+                            <p id="res-fecha"></p>
+                            <p id="res-hora"></p>
 
-</h2>
+                        </div>
 
-<div class="confirm-box">
+                        <button class="btn-confirm" onclick="abrirPago()">
 
-<p id="final-servicio"></p>
-<p id="final-fecha"></p>
-<p id="final-hora"></p>
+                            Pagar 💳
 
-</div>
+                        </button>
 
-</div>
+                    </div>
 
-</div>
 
+                    <div id="paso4" class="hidden">
 
-<!-- AGENDA -->
+                        <h2>
 
-<div
-id="agenda"
-class="vista hidden">
+                            ✔ Reserva Confirmada
 
-<h2>
+                        </h2>
 
-Agendas Registradas
+                        <div class="confirm-box">
 
-</h2>
+                            <p id="final-servicio"></p>
+                            <p id="final-fecha"></p>
+                            <p id="final-hora"></p>
 
-<div class="agenda-container">
+                        </div>
 
+                    </div>
 
-<div class="agenda-right">
+                </div>
 
-<div class="calendar-card">
 
-<div id="agendaCalendar"></div>
+                <!-- AGENDA -->
 
+                <div id="agenda" class="vista hidden">
 
+                    <h2>
 
+                        Agendas Registradas
 
+                    </h2>
 
+                    <div class="agenda-container">
 
-</div>
 
-</div>
+                        <div class="agenda-right">
 
-</div>
+                            <div class="calendar-card">
 
-</div>
+                                <div id="agendaCalendar"></div>
 
-</div>
 
-</div>
 
 
-<div id="pagoModal" class="pago-modal">
 
-<div class="pago-box">
 
-<h2>Pago</h2>
+                            </div>
 
-<p>
-Total:
-<strong id="pagoTotal">
-$0
-</strong>
-</p>
+                        </div>
 
-<input
-id="tarjeta"
-placeholder="Número tarjeta"
-maxlength="16">
+                    </div>
 
-<input
-id="fechaPago"
-placeholder="MM/YYYY"
-maxlength="7">
+                </div>
 
-<input
-id="cvv"
-placeholder="CVV"
-maxlength="3">
+            </div>
 
-<div id="animacionPago"></div>
+        </div>
 
-<button
-id="btnPagar"
-onclick="procesarPago()">
 
-Pagar
+        <div id="pagoModal" class="pago-modal">
 
-</button>
+            <div class="pago-box">
 
-<button
-class="cancel"
-onclick="cerrarPago()">
+                <h2>Pago</h2>
 
-Cancelar
+                <p>
+                    Total:
+                    <strong id="pagoTotal">
+                        $0
+                    </strong>
+                </p>
 
-</button>
+                <input id="tarjeta" placeholder="Número tarjeta" maxlength="16">
 
-</div>
+                <input id="fechaPago" placeholder="MM/YYYY" maxlength="7">
 
-</div>
+                <input id="cvv" placeholder="CVV" maxlength="3">
 
+                <div id="animacionPago"></div>
 
-<!-- POPUP FONDO -->
-<div
-id="popupFondo"
-class="popup-fondo hidden"
-onclick="cerrarPopup()">
-</div>
+                <button id="btnPagar" onclick="procesarPago()">
 
-<!-- POPUP RESERVA -->
-<div
-id="infoReserva"
-class="hidden reserva-popup">
+                    Pagar
 
-<h3>Reserva</h3>
+                </button>
 
-<p id="popupServicio"></p>
+                <button class="cancel" onclick="cerrarPago()">
 
-<p id="popupFecha"></p>
+                    Cancelar
 
-<p id="popupHora"></p>
+                </button>
 
-<p id="popupPrecio"></p>
+            </div>
 
-<p>
-¿Desea eliminar la fecha asignada?
-</p>
+        </div>
 
-<div class="popup-buttons">
 
-<button onclick="confirmarEliminar()">
-Sí
-</button>
+        <!-- POPUP FONDO -->
+        <div id="popupFondo" class="popup-fondo hidden" onclick="cerrarPopup()">
+        </div>
 
-<button onclick="cerrarPopup()">
-No
-</button>
+        <!-- POPUP RESERVA -->
+        <div id="infoReserva" class="hidden reserva-popup">
 
-</div>
+            <h3>Reserva</h3>
 
-</div>
+            <p id="popupServicio"></p>
 
-<script src="{% static 'js/app.js' %}"></script>
+            <p id="popupFecha"></p>
 
-<div class="barber-pole left"></div>
-<div class="barber-pole right"></div>
+            <p id="popupHora"></p>
+
+            <p id="popupPrecio"></p>
+
+            <p>
+                ¿Desea eliminar la fecha asignada?
+            </p>
+
+            <div class="popup-buttons">
+
+                <button onclick="confirmarEliminar()">
+                    Sí
+                </button>
+
+                <button onclick="cerrarPopup()">
+                    No
+                </button>
+
+            </div>
+
+        </div>
+
+        <script src="{% static 'js/app.js' %}"></script>
+
+        <div class="barber-pole left"></div>
+        <div class="barber-pole right"></div>
 
 </body>
+
 </html>
