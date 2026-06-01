@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-#%+d%sx=a=l0mcf)55rxn)07$k(b#ckd^@u*ew&b5nb2ma%37v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -48,6 +48,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+LOGIN_URL = "/"
+LOGIN_REDIRECT_URL = "/app/"
+
 ]
 
 ROOT_URLCONF = 'barberia.urls'
