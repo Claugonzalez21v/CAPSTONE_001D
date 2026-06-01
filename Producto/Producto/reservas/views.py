@@ -96,7 +96,7 @@ def app(request):
 
     return render(
         request,
-        "index.html",
+        "app.html",
         {
             "reservas":reservas
         }

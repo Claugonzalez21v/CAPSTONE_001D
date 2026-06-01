@@ -20,9 +20,9 @@ urlpatterns=[
 
     # APP PRINCIPAL
     path(
-        'index/',
+        'app/',
         views.app,
-        name='index.html'
+        name='app.html'
     ),
 
     # CREAR RESERVA
