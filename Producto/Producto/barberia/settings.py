@@ -49,13 +49,14 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
+  
+
+]
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 LOGIN_URL = "/"
 LOGIN_REDIRECT_URL = "/app/"
-
-]
 
 ROOT_URLCONF = 'barberia.urls'
 
