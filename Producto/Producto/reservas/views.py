@@ -40,9 +40,7 @@ def login(request):
             return redirect(
                 "app"
             )
-        if usuario:
-            auth_login(request, usuario)
-        return redirect("/index/")
+
     return render(
         request,
         "login.html"
