@@ -1,5 +1,5 @@
 /* ===== VARIABLES ===== */
-
+const stripe = Stripe("pk_test_51TdM7iPLsltGKLrGGuBxWZebNhIFhAK0OVc6X6rnPcbDxljrXq4Bf4OtAv0DkqdCf4Blsy5ufK1ujObJ80Cclphs00cXLH6paF");
 let sesion =
 
     sessionStorage.getItem(
@@ -1115,202 +1115,103 @@ function cerrarPago() {
 }
 
 
-function procesarPago() {
+async function procesarPago() {
 
-    let tarjeta =
-        document
-            .getElementById(
-                "tarjeta"
-            ).value;
+    let tarjeta = document.getElementById("tarjeta").value;
+    let fecha = document.getElementById("fechaPago").value;
+    let cvv = document.getElementById("cvv").value;
 
-    let fecha =
-        document
-            .getElementById(
-                "fechaPago"
-            ).value;
-
-    let cvv =
-        document
-            .getElementById(
-                "cvv"
-            ).value;
-
-
-    if (
-        !tarjeta ||
-        !fecha ||
-        !cvv
-    ) {
-
-        mostrarAlerta(
-            "Completa todos los campos"
-        );
-
+    if (!tarjeta || !fecha || !cvv) {
+        mostrarAlerta("Completa todos los campos");
         return;
-
     }
 
-    let animacion =
-        document.getElementById(
-            "animacionPago"
+    let animacion = document.getElementById("animacionPago");
+
+    animacion.innerHTML = `
+        <div class="loader"></div>
+        <p>Procesando pago...</p>
+    `;
+
+    document.getElementById("btnPagar").disabled = true;
+
+    try {
+
+        const BACKEND_STRIPE_URL = "https://capstone-001d.onrender.com";
+
+        const response = await fetch(
+            BACKEND_STRIPE_URL + "/create-payment-intent",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    amount: precios
+                })
+            }
         );
 
-    animacion.innerHTML =
+        const data = await response.json();
 
-        `<div class="loader"></div>
-<p>Procesando pago...</p>`;
+        if (data.error) {
+            mostrarAlerta(data.error);
+            document.getElementById("btnPagar").disabled = false;
+            return;
+        }
 
-    document
-        .getElementById(
-            "btnPagar"
-        )
-        .disabled = true;
+        console.log("PaymentIntent creado:", data.clientSecret);
 
-
-    setTimeout(() => {
-
-        /* ocultar formulario */
-
-        document
-            .getElementById(
-                "tarjeta"
-            )
-            .style.display =
-            "none";
-
-        document
-            .getElementById(
-                "fechaPago"
-            )
-            .style.display =
-            "none";
-
-        document
-            .getElementById(
-                "cvv"
-            )
-            .style.display =
-            "none";
-
-        document
-            .getElementById(
-                "btnPagar"
-            )
-            .style.display =
-            "none";
-
-        document
-            .querySelector(
-                ".cancel"
-            )
-            .style.display =
-            "none";
-
-
-        /* mostrar confirmación */
+        document.getElementById("tarjeta").style.display = "none";
+        document.getElementById("fechaPago").style.display = "none";
+        document.getElementById("cvv").style.display = "none";
+        document.getElementById("btnPagar").style.display = "none";
+        document.querySelector(".cancel").style.display = "none";
 
         animacion.innerHTML = `
+            <div class="check"></div>
 
-<div class="check"></div>
+            <h3>Pago enviado a Stripe</h3>
 
-<h3>
-Pago completado
-</h3>
+            <p>${servicio}</p>
+            <p>${selectedDate}</p>
+            <p>${selectedHour}</p>
+            <p>$${precios.toLocaleString("es-CL")}</p>
 
-<p>
-${servicio}
-</p>
+            <button onclick="irAgenda()">
+                Ir a mis agendas
+            </button>
+        `;
 
-<p>
-${selectedDate}
-</p>
+        await fetch("/guardar/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                servicio: servicio,
+                fecha: selectedDate,
+                hora: selectedHour,
+                precio: precios
+            })
+        });
 
-<p>
-${selectedHour}
-</p>
-
-<p>
-$${precios.toLocaleString("es-CL")}
-</p>
-
-<button
-onclick="irAgenda()">
-
-Ir a mis agendas
-
-</button>
-
-`;
-
-
-
-
-
-        /* guardar nueva */
-
-        fetch(
-            "/guardar/",
-            {
-
-                method: "POST",
-
-                headers: {
-
-                    "Content-Type":
-                        "application/json"
-
-                },
-
-                body: JSON.stringify({
-
-                    servicio:
-                        servicio,
-
-                    fecha:
-                        selectedDate,
-
-                    hora:
-                        selectedHour,
-
-                    precio:
-                        precios
-
-                })
-
-            }
-
-        )
-            .then(
-                r => r.json()
-            )
-            .then(data => {
-
-                console.log(
-                    "Reserva guardada",
-                    data
-                );
-
-                agregarNotif(
-
-                    "Reserva creada para " +
-                    selectedDate +
-                    " a las " +
-                    selectedHour
-
-                );
-
-                inicializarCalendarios();
-
-            });
-
-
-        /* redibujar calendario */
-
+        agregarNotif(
+            "Reserva creada para " +
+            selectedDate +
+            " a las " +
+            selectedHour
+        );
 
         inicializarCalendarios();
 
-    }, 2500);
+    } catch (error) {
 
+        console.log(error);
+        mostrarAlerta("Error al conectar con Stripe");
+        document.getElementById("btnPagar").disabled = false;
+
+    }
 }
 
 
