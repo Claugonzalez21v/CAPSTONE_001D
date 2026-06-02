@@ -130,4 +130,4 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 LOGIN_URL = "/"
-LOGIN_REDIRECT_URL = "/index/"
+LOGIN_REDIRECT_URL = "/app/"
