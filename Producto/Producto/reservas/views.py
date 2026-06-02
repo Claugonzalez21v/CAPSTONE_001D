@@ -14,17 +14,12 @@ from datetime import datetime
 
 def login(request):
 
-    if request.method=="POST":
+    if request.method == "POST":
 
-        username=request.POST.get(
-            "user"
-        )
+        username = request.POST.get("user")
+        password = request.POST.get("pass")
 
-        password=request.POST.get(
-            "pass"
-        )
-
-        usuario=authenticate(
+        usuario = authenticate(
             request,
             username=username,
             password=password
@@ -32,20 +27,17 @@ def login(request):
 
         if usuario:
 
-            auth_login(
-                request,
-                usuario
-            )
+            auth_login(request, usuario)
 
-            return redirect(
-                "app"
-            )
+            print("LOGIN CORRECTO:", username)
 
-    return render(
-        request,
-        "login.html"
-    )
+            return redirect("/index/")
 
+        else:
+
+            print("LOGIN FALLIDO:", username, password)
+
+    return render(request, "login.html")
 
 # ===== REGISTRO =====
 
