@@ -28,37 +28,7 @@ document.addEventListener(
     "DOMContentLoaded",
     () => {
 
-        sesion =
-
-            sessionStorage.getItem(
-                "sesionActiva"
-            );
-
-        if (
-            !sesion
-        ) {
-
-            if (
-
-                !window.location.pathname.includes(
-                    "login"
-                )
-
-                &&
-
-                !window.location.pathname.includes(
-                    "registro"
-                )
-
-            ) {
-
-                window.location.href = "/";
-
-                return;
-
-            }
-
-        }
+        
 
         let nombre =
 
@@ -71,7 +41,7 @@ document.addEventListener(
         ) {
 
             nombre.innerText =
-                sesion || "Usuario";
+                "Usuario";
 
         }
 
@@ -1328,10 +1298,7 @@ function eliminarReserva(btn) {
 
 function logout() {
 
-    sessionStorage.removeItem(
-        "sesionActiva"
-    );
-
+  
     window.location.href = "/";
 
 }
