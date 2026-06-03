@@ -1,11 +1,8 @@
 /* ===== VARIABLES ===== */
 const stripe = Stripe("pk_test_51TdM7iPLsltGKLrGGuBxWZebNhIFhAK0OVc6X6rnPcbDxljrXq4Bf4OtAv0DkqdCf4Blsy5ufK1ujObJ80Cclphs00cXLH6paF");
-let sesion =
 
-    sessionStorage.getItem(
-        "sesionActiva"
-    );
 
+  
 let user = "Usuario";
 
 let servicio = "";
@@ -31,8 +28,7 @@ document.addEventListener(
         sesion =
 
             sessionStorage.getItem(
-                "sesionActiva"
-            );
+
 
         if (
             !sesion
@@ -1328,9 +1324,7 @@ function eliminarReserva(btn) {
 
 function logout() {
 
-    sessionStorage.removeItem(
-        "sesionActiva"
-    );
+    
 
     window.location.href = "/";
 

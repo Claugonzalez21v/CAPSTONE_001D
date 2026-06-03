@@ -1,106 +1,107 @@
-function login(){
+function login() {
 
-let usuario=
+    let usuario =
 
-document
-.getElementById(
-"user"
-)
-.value.trim();
+        document
+            .getElementById(
+                "user"
+            )
+            .value.trim();
 
-let password=
+    let password =
 
-document
-.getElementById(
-"pass"
-)
-.value.trim();
-
-
-if(
-!usuario||
-!password
-){
-
-alert(
-"Completa todos los campos"
-);
-
-return;
-
-}
+        document
+            .getElementById(
+                "pass"
+            )
+            .value.trim();
 
 
-let usuarios=
+    if (
+        !usuario ||
+        !password
+    ) {
 
-JSON.parse(
-localStorage.getItem(
-"usuarios"
-)
+        alert(
+            "Completa todos los campos"
+        );
 
-)||[];
+        return;
 
-
-let existe=
-
-usuarios.find(
-u=>
-
-u.usuario===usuario &&
-u.password===password
-
-);
+    }
 
 
-if(
-!existe
-){
+    let usuarios =
 
-alert(
-"Usuario o contraseña incorrectos"
-);
+        JSON.parse(
+            localStorage.getItem(
+                "usuarios"
+            )
 
-return;
-
-}
+        ) || [];
 
 
-/* guardar sesión */
+    let existe =
 
-sessionStorage.setItem(
+        usuarios.find(
+            u =>
 
-"sesionActiva",
-usuario
+                u.usuario === usuario &&
+                u.password === password
 
-);
+        );
 
 
-/* entrar al panel */
+    if (
+        !existe
+    ) {
 
-window.location.href=
+        alert(
+            "Usuario o contraseña incorrectos"
+        );
 
-"/app/";
+        return;
 
-}
+    }
 
-function goRegister(){
 
-window.location.href=
-"/registro/";
+    /* guardar sesión 
+
+    sessionStorage.setItem(
+
+        "sesionActiva",
+        usuario
+
+    );
+    */
+
+
+    /* entrar al panel */
+
+    window.location.href =
+
+        "app";
 
 }
 
-let sesion=
+function goRegister() {
 
-sessionStorage.getItem(
-"sesionActiva"
-);
+    window.location.href =
+        "/registro/";
 
-if(
-sesion
-){
+}
 
-window.location.href=
-"/app/";
+let sesion =
+
+    sessionStorage.getItem(
+        "sesionActiva"
+    );
+
+if (
+    sesion
+) {
+
+    window.location.href =
+        "/app/";
 
 }
