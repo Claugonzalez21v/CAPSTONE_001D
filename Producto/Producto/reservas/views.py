@@ -30,16 +30,21 @@ def login(request):
             password=password
         )
 
-        if usuario:
+        if usuario is not None:
 
             auth_login(
                 request,
                 usuario
             )
+            print("LOGIN CORRECTO")
 
             return redirect(
                 "app"
             )
+        else:
+
+            print("LOGIN FALLÓ")
+
 
     return render(
         request,
