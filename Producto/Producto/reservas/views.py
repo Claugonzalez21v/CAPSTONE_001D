@@ -8,7 +8,10 @@ from .forms import ReservaForm
 
 import calendar
 from datetime import datetime
-
+import stripe
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 # ===== LOGIN =====
 
