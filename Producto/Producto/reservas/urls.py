@@ -22,7 +22,7 @@ urlpatterns=[
     path(
         'app/',
         views.app,
-        name='app.html'
+        name='app'
     ),
 
     # CREAR RESERVA

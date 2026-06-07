@@ -39,7 +39,7 @@ def login(request):
             print("LOGIN CORRECTO")
 
             return redirect(
-                "app"
+                "/app/"
             )
         else:
 
