@@ -296,12 +296,16 @@ def create_payment_intent(request):
         try:
 
             data = json.loads(request.body)
+            
+            print("MONTO RECIBIDO:", data["amount"])
+            print("MONEDA: clp")
+
 
             stripe.api_key = settings.STRIPE_SECRET_KEY
 
             intent = stripe.PaymentIntent.create(
                 amount=int(data["amount"]),
-                currency="usd",
+                currency="clp",
                 automatic_payment_methods={
                     "enabled": True
                 }
