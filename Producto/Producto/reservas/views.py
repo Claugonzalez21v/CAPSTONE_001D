@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login as auth_login
 from django.contrib.auth.models import User
-
+from django.conf import settings
 from .models import Reserva
 from .forms import ReservaForm
 
@@ -286,3 +286,28 @@ def eliminarReserva(request,id):
         "ok":False
 
     })
+    
+from django.conf import settings
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
+@csrf_exempt
+@login_required
+def create_payment_intent(request):
+
+    if request.method == "POST":
+
+        data = json.loads(request.body)
+
+        intent = stripe.PaymentIntent.create(
+            amount=int(data["amount"]),
+            currency="clp"
+        )
+
+        return JsonResponse({
+            "clientSecret": intent.client_secret
+        })
+
+    return JsonResponse({
+        "error": "Método no permitido"
+    }, status=405)

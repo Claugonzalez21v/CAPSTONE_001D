@@ -57,6 +57,12 @@ urlpatterns=[
     views.eliminarReserva,
     name="eliminar"
     ),
+    
+    path(
+    "create-payment-intent/",
+    views.create_payment_intent,
+    name="create_payment_intent"
+),
 
 ]
 

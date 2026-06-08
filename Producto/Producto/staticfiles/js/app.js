@@ -1136,7 +1136,7 @@ async function procesarPago() {
         const BACKEND_STRIPE_URL = "https://capstone-001d.onrender.com";
 
         const response = await fetch(
-            BACKEND_STRIPE_URL + "/create-payment-intent",
+             "/create-payment-intent",
             {
                 method: "POST",
                 headers: {
