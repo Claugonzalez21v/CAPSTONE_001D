@@ -1,5 +1,5 @@
 /* ===== VARIABLES ===== */
-const stripe = Stripe("pk_test_51TdM7iPLsltGKLrGGuBxWZebNhIFhAK0OVc6X6rnPcbDxljrXq4Bf4OtAv0DkqdCf4Blsy5ufK1ujObJ80Cclphs00cXLH6paF");
+const stripe = Stripe("pk_test_51TdM7VPS3Gx0J8B6DcvSUoDw9OIEVN2Va4VVuLVNAwA3VHnLmJhVHImYlSyym9VTnXPKXAM5zeKYYboQaTSibNwY00FqL2QkFd");
 
 let user = "Usuario";
 
@@ -1330,3 +1330,15 @@ function getCookie(nombre) {
     }
 
 }
+const response = await fetch(
+    "/create-payment-intent/",
+    {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            amount: precios
+        })
+    }
+);

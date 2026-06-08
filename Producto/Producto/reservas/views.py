@@ -287,26 +287,35 @@ def eliminarReserva(request,id):
 
     })
     
-from django.conf import settings
-
-stripe.api_key = settings.STRIPE_SECRET_KEY
-
 @csrf_exempt
 @login_required
 def create_payment_intent(request):
 
     if request.method == "POST":
 
-        data = json.loads(request.body)
+        try:
 
-        intent = stripe.PaymentIntent.create(
-            amount=int(data["amount"]),
-            currency="clp"
-        )
+            data = json.loads(request.body)
 
-        return JsonResponse({
-            "clientSecret": intent.client_secret
-        })
+            stripe.api_key = settings.STRIPE_SECRET_KEY
+
+            intent = stripe.PaymentIntent.create(
+                amount=int(data["amount"]),
+                currency="usd",
+                automatic_payment_methods={
+                    "enabled": True
+                }
+            )
+
+            return JsonResponse({
+                "clientSecret": intent.client_secret
+            })
+
+        except Exception as e:
+
+            return JsonResponse({
+                "error": str(e)
+            }, status=500)
 
     return JsonResponse({
         "error": "Método no permitido"
