@@ -56,20 +56,7 @@ document.addEventListener(
 
         }
 
-        let nombre =
-
-            document.getElementById(
-                "user-name"
-            );
-
-        if (
-            nombre
-        ) {
-
-            nombre.innerText =
-                sesion || "Usuario";
-
-        }
+       
 
         actualizarContador();
 

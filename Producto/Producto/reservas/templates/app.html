@@ -43,7 +43,7 @@
 
             </div>
 
-            <div class="nav-item logout" onclick="logout()">
+            <div class="nav-item logout" onclick="window.location.href='/logout/'">
 
                 Cerrar sesión
 
@@ -77,10 +77,9 @@
 
                     <div id="user-name">
 
-                        Usuario
+                        👤 {{ user.username }}
 
                     </div>
-
                 </div>
 
             </header>

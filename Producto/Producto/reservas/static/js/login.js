@@ -90,17 +90,3 @@ function goRegister() {
 
 }
 
-let sesion =
-
-    sessionStorage.getItem(
-        "sesionActiva"
-    );
-
-if (
-    sesion
-) {
-
-    window.location.href =
-        "/app/";
-
-}

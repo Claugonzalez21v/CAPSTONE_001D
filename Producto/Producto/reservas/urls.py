@@ -62,6 +62,12 @@ urlpatterns=[
     "create-payment-intent/",
     views.create_payment_intent,
     name="create_payment_intent"
+    ),
+    
+    path(
+    'logout/',
+    views.cerrarSesion,
+    name='logout'
 ),
 
 ]

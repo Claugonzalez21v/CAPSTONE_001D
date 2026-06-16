@@ -42,17 +42,15 @@ def login(request):
             print("LOGIN CORRECTO")
 
             return redirect(
-                "/app/"
+                "app"
             )
         else:
 
             print("LOGIN FALLÓ")
-
-
     return render(
-        request,
-        ".html"
-    )
+            request,
+        "login.html")
+
 
 
 # ===== REGISTRO =====
@@ -82,6 +80,9 @@ def registro(request):
                 password=password,
                 email=email
             )
+            
+            print("USUARIO CREADO:", username)
+
 
             return redirect(
                 "login"
@@ -324,3 +325,18 @@ def create_payment_intent(request):
     return JsonResponse({
         "error": "Método no permitido"
     }, status=405)
+    
+    
+from django.contrib.auth import (
+    authenticate,
+    login as auth_login,
+    logout
+)
+
+def cerrarSesion(request):
+
+    logout(request)
+
+    print("SESIÓN CERRADA")
+
+    return redirect("login")
