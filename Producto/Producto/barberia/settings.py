@@ -77,14 +77,15 @@ WSGI_APPLICATION = 'barberia.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/6.0/ref/settings/#databases
+#    https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
+#    }
+#}#
+
 
 
 # Password validation
@@ -132,3 +133,24 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 LOGIN_URL = "/"
 LOGIN_REDIRECT_URL = "/app/"
+
+from pathlib import Path
+import os
+import dj_database_url
+
+if os.environ.get("DATABASE_URL"):
+
+    DATABASES = {
+        'default': dj_database_url.parse(
+            os.environ.get("DATABASE_URL")
+        )
+    }
+
+else:
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
