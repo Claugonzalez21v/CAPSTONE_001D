@@ -4,4 +4,3 @@ whitenoise
 stripe
 dj-database-url
 psycopg2-binary
-pip freeze 
