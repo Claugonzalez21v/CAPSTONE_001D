@@ -42,10 +42,7 @@
                 Agenda de Hoy
 
             </div>
-            <div class="nav-item" onclick="cambiarVista('agenda',event)">
-                Agenda de Hoy
-            </div>
-
+            
             {% if request.user.is_staff %}
             <div class="nav-item" onclick="window.location.href='/panel_admin/'">
                 Panel Administración
