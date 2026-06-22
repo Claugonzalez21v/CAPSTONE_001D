@@ -30,7 +30,7 @@ function login() {
 
     }
 
-    /* ADMIN */
+    /* ADMIN
 
     if (
         usuario === "claudioadmin"
@@ -46,7 +46,7 @@ function login() {
 
         return;
 
-    }
+    }*/
 
 
 

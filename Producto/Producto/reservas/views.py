@@ -53,7 +53,9 @@ def login(request):
 
 #===PANEL ADMIN===
 
+from django.contrib.admin.views.decorators import staff_member_required
 
+@staff_member_required
 def panel_admin(request):
 
     reservas = Reserva.objects.all().order_by(
