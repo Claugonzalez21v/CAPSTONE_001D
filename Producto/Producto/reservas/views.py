@@ -53,8 +53,9 @@ def login(request):
 
 #===PANEL ADMIN===
 
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
 from django.contrib.admin.views.decorators import staff_member_required
-
 @staff_member_required
 def panel_admin(request):
 
