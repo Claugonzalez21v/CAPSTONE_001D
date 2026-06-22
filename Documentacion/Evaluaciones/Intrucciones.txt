@@ -1,0 +1,148 @@
+cd "C:\Users\gonza\Desktop\fase 1\Proyecto"
+
+git add .
+
+git commit -m "Actualización de Documentación  "
+
+git push
+
+
+clave:v2LBCUHKt68W5w5
+
+pghero-8d63b260
+
+e226beb94927eb87fb297d94b5cb5c4c
+
+clau.gonzalez@duocuc.cl
+
+32204f2e4981ab62eabbe7f1e531d266
+
+
+cd C:\render
+cli_v2.20.0 login
+cli_v2.20.0 whoami
+ cli_v2.20.0 psql dpg-d8rf2l77f7vs73e03kfg-a
+
+
+
+
+
+SELECT id, username, email, is_staff, is_superuser
+FROM auth_user;
+
+ver solo los nombres de usuario
+SELECT username
+FROM auth_user;
+
+Ver cuántos usuarios tienes registrados
+SELECT COUNT(*)
+FROM auth_user;
+
+Si quieres verla más ordenada:
+
+SELECT
+    id AS "ID",
+    username AS "Usuario",
+    first_name AS "Nombre",
+    last_name AS "Apellido",
+    email AS "Correo",
+    is_staff AS "Staff",
+    is_superuser AS "Admin",
+    is_active AS "Activo",
+    last_login AS "Último Login",
+    date_joined AS "Fecha Registro"
+FROM auth_user
+ORDER BY id;
+
+Si quieres ver todas las columnas existentes de la tabla:
+
+SELECT *
+FROM auth_user;
+
+Y si quieres saber qué usuarios pueden entrar al panel de administración:
+
+SELECT
+    username,
+    is_staff,
+    is_superuser
+FROM auth_user;
+
+Como ya tienes acceso a PostgreSQL, vamos a comprobarlo directamente.
+
+Ejecuta en PostgreSQL:
+
+SELECT
+    username,
+    is_staff,
+    is_superuser,
+    is_active
+FROM auth_user;
+
+Si el usuario admin aparece con:
+
+is_staff = f
+is_superuser = f
+
+entonces Django Admin lo bloqueará.
+
+Solución
+
+En PostgreSQL ejecuta:
+
+UPDATE auth_user
+SET is_staff = TRUE,
+    is_superuser = TRUE
+WHERE username = 'admin';
+
+Luego verifica:
+
+SELECT
+    username,
+    is_staff,
+    is_superuser
+FROM auth_user
+WHERE username = 'admin';
+
+
+Ver todas las reservas
+
+Si tu tabla se llama reservas_reserva:
+
+SELECT *
+FROM reservas_reserva;
+Ver reservas ordenadas por fecha de creación
+SELECT *
+FROM reservas_reserva
+ORDER BY creada DESC;
+Ver reservas con información importante
+SELECT
+    id,
+    usuario_id,
+    email,
+    servicio,
+    fecha,
+    hora,
+    precio,
+    creada
+FROM reservas_reserva
+ORDER BY fecha;
+Ver reservas de un usuario específico
+SELECT *
+FROM reservas_reserva
+WHERE usuario_id = 1;
+Ver cuántas reservas existen
+SELECT COUNT(*)
+FROM reservas_reserva;
+Ver reservas junto al nombre del usuario
+SELECT
+    r.id,
+    u.username,
+    r.email,
+    r.servicio,
+    r.fecha,
+    r.hora,
+    r.precio
+FROM reservas_reserva r
+INNER JOIN auth_user u
+ON r.usuario_id = u.id
+ORDER BY r.fecha;
