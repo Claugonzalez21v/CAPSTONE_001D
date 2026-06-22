@@ -30,6 +30,25 @@ function login() {
 
     }
 
+    /* ADMIN */
+
+    if (
+        usuario === "claudioadmin"
+    ) {
+
+        sessionStorage.setItem(
+            "sesionAdmin",
+            "true"
+        );
+
+        window.location.href =
+            "/panel_admin/";
+
+        return;
+
+    }
+
+
 
     let usuarios =
 

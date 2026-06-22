@@ -1,0 +1,163 @@
+body{
+    margin:0;
+    font-family:'Segoe UI',sans-serif;
+    background:#111827;
+    color:white;
+}
+
+.header{
+    background:#1f2937;
+    padding:20px;
+    text-align:center;
+    font-size:28px;
+    font-weight:bold;
+    box-shadow:0 4px 10px rgba(0,0,0,.3);
+}
+
+.container{
+    width:90%;
+    margin:auto;
+    padding:30px;
+}
+
+.card{
+    background:#1f2937;
+    border-radius:12px;
+    padding:25px;
+    margin-bottom:25px;
+    box-shadow:0 4px 12px rgba(0,0,0,.4);
+}
+
+.card h2{
+    margin-top:0;
+    color:#38bdf8;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+table th{
+    background:#0f172a;
+    padding:12px;
+}
+
+table td{
+    padding:12px;
+    border-bottom:1px solid #374151;
+}
+
+input,
+textarea{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    margin-bottom:15px;
+    border:none;
+    border-radius:8px;
+}
+
+button{
+    background:#38bdf8;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0ea5e9;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:15px;
+}
+
+th{
+    background:#0f172a;
+    color:white;
+    padding:14px;
+}
+
+td{
+    padding:12px;
+    text-align:center;
+    border-bottom:1px solid #374151;
+}
+
+tr:hover{
+    background:#263244;
+}
+
+.btn-volver{
+    background:#ef4444;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:600;
+}
+
+.btn-volver:hover{
+    background:#dc2626;
+}
+
+.card:last-child{
+    text-align:center;
+}
+
+.card:last-child .btn-volver{
+    margin-top:15px;
+}
+
+.card h2{
+    text-align:center;
+}
+
+.acciones-container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:15px;
+    margin-top:20px;
+}
+
+.btn-app{
+    background:#22c55e;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:600;
+}
+
+.btn-app:hover{
+    background:#16a34a;
+}
+
+.btn-volver{
+    background:#ef4444;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:600;
+}
+
+.btn-volver:hover{
+    background:#dc2626;
+}
+
+.acciones-card{
+    padding:20px;
+}

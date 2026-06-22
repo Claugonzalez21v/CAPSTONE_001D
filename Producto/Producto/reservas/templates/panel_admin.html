@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <title>Panel Administrador</title>
+
+    <link rel="stylesheet"
+    href="{% static 'css/panel_admin.css' %}">
+
+</head>
+
+<body>
+
+<div class="header">
+    Panel Administrador
+</div>
+
+<div class="container">
+
+    <div class="card">
+
+        <h2>Reservas Agendadas</h2>
+        <h3>Total reservas: {{ reservas|length }}</h3>
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Cliente</th>
+                    <th>Servicio</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Precio</th>
+                    <th>Creada</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for reserva in reservas %}
+
+                <tr>
+
+                    <td>{{ reserva.usuario.username }}</td>
+                    <td>{{ reserva.servicio }}</td>
+                    <td>{{ reserva.fecha }}</td>
+                    <td>{{ reserva.hora }}</td>
+                    <td>Bs. {{ reserva.precio }}</td>
+                    <td>{{ reserva.creada|date:"d/m/Y H:i" }}</td>
+
+                </tr>
+
+            {% empty %}
+
+                <tr>
+                    <td colspan="6">
+                        No existen reservas registradas
+                    </td>
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+<div class="card acciones-card">
+
+    <h2>Acciones</h2>
+
+    <div class="acciones-container">
+
+        <button
+class="btn-app"
+onclick="irPanelPrincipal()">
+
+Ir al Panel Principal
+
+</button>
+
+        <button
+class="btn-volver"
+onclick="cerrarSesionAdmin()">
+
+Volver al Login
+
+</button>
+
+    </div>
+
+</div>
+
+</div>
+
+</body>
+<script src="{% static 'js/panel_admin.js' %}"></script>
+</html>

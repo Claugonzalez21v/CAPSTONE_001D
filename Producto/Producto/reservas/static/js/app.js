@@ -23,7 +23,38 @@ document.addEventListener(
     "DOMContentLoaded",
     () => {
 
-        
+         sesion =
+
+            sessionStorage.getItem(
+                "sesionActiva"
+            );
+
+        if (
+            !sesion
+        ) {
+
+            if (
+                sessionStorage.getItem(
+                    "sesionAdmin"
+                )
+            ) {
+
+                sessionStorage.setItem(
+                    "sesionActiva",
+                    "claudioadmin"
+                );
+
+                sesion = "claudioadmin";
+
+            } else {
+
+                window.location.href = "/";
+
+                return;
+
+            }
+
+        }
 
         let nombre =
 

@@ -65,6 +65,13 @@ urlpatterns=[
     ),
     
     path(
+    'panel_admin/', 
+    views.panel_admin, 
+    name='panel_admin'
+    ),
+
+    
+    path(
     'logout/',
     views.cerrarSesion,
     name='logout'

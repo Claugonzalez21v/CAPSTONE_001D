@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+
+<title>Registro</title>
+
+<link rel="stylesheet"
+href="{% static 'css/login.css' %}">
+
+</head>
+
+<body>
+
+<div class="login-container">
+
+<div class="login-box">
+
+<form method="POST" id="registroForm">
+
+{% csrf_token %}
+
+<h2>Crear cuenta</h2>
+
+<input
+type="text"
+name="user"
+id="user"
+placeholder="Usuario">
+
+<input
+type="password"
+name="pass"
+id="pass"
+placeholder="Contraseña">
+
+<input
+type="email"
+name="email"
+id="email"
+placeholder="Correo electrónico">
+
+<button
+type="su"
+class="btn-login"
+>
+
+Registrarse
+
+</button>
+
+<button
+type="button"
+class="btn-register"
+onclick="goLogin()">
+
+Ir a login
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+<script src="{% static 'js/registro.js' %}"></script>
+
+</body>
+</html>

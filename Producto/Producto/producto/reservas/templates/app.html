@@ -1,0 +1,409 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Barbería</title>
+
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <script src="https://js.stripe.com/v3/"></script>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <aside class="sidebar">
+
+            <h2>Menú</h2>
+
+            <div class="nav-item active" onclick="cambiarVista('panel',event)">
+
+                Panel Principal
+
+            </div>
+
+            <div class="nav-item" onclick="cambiarVista('reservas',event)">
+
+                Reservas
+
+            </div>
+
+            <div class="nav-item" onclick="cambiarVista('agenda',event)">
+
+                Agenda de Hoy
+
+            </div>
+
+            <div class="nav-item logout" onclick="window.location.href='/logout/'">
+
+                Cerrar sesión
+
+            </div>
+
+        </aside>
+
+
+        <div class="main">
+
+            <header>
+
+                <h2 id="titulo">
+
+                    Panel Principal
+
+                </h2>
+
+                <div class="header-right">
+
+                    <div id="notif">
+
+                        🔔
+                        <span id="notif-count">
+
+                            0
+
+                        </span>
+
+                    </div>
+
+                    <div id="user-name">
+
+                        👤 {{ user.username }}
+
+                    </div>
+                </div>
+
+            </header>
+
+            <div id="notif-panel" class="notif-panel">
+
+            </div>
+
+
+            <div class="content">
+
+                <!-- PANEL -->
+
+                <div id="panel" class="vista">
+
+                    <h2>
+
+                        ReservaFacil-BarberShop
+
+                    </h2>
+
+                    <p>
+
+                        Haga su reserva para un corte de calidad garantizada.
+
+                    </p>
+
+                </div>
+
+
+                <!-- RESERVAS -->
+
+                <div id="reservas" class="vista hidden">
+
+                    <h2>
+
+                        Paso 1: Seleccionar Servicio
+
+                    </h2>
+
+                    <div id="paso1">
+
+                        <h3>
+
+                            Selecciona un servicio
+
+                        </h3>
+
+                        <div class="servicio-box" onclick="seleccionarServicio('Caballero')">
+
+                            ✂️ Caballero
+
+                            <span>$ 10.000</span>
+
+                        </div>
+
+                        <div class="servicio-box" onclick="seleccionarServicio('Dama')">
+
+                            ✂️ Dama
+
+                            <span>$ 15.000</span>
+
+                        </div>
+
+                        <div class="servicio-box" onclick="seleccionarServicio('Barba')">
+
+                            🧔 Barba
+
+                            <span>$ 6.000</span>
+
+                        </div>
+
+                        <div class="servicio-box" onclick="seleccionarServicio('Completo')">
+
+                            💈 Completo
+
+                            <span>$ 20.000</span>
+
+                        </div>
+
+                        <button class="btn-next" onclick="irPaso(2)">
+
+                            Siguiente →
+
+                        </button>
+
+                    </div>
+
+
+
+                    <div id="paso2" class="hidden">
+
+                        <h3>
+
+                            Elegir Fecha y Hora
+
+                        </h3>
+
+                        <div class="fecha-hora-container">
+
+                            <div class="calendar-area">
+
+                                <input id="calendarInput" type="text" input>
+
+                            </div>
+
+                            <div class="hours">
+
+                                <button onclick="selectHour('09:00')">
+
+                                    9:00 AM
+
+                                </button>
+
+                                <button onclick="selectHour('10:00')">
+
+                                    10:00 AM
+
+                                </button>
+
+                                <button onclick="selectHour('11:00')">
+
+                                    11:00 AM
+
+                                </button>
+
+                                <button onclick="selectHour('14:00')">
+
+                                    2:00 PM
+
+                                </button>
+
+                                <button onclick="selectHour('15:00')">
+
+                                    3:00 PM
+
+                                </button>
+
+                                <button onclick="selectHour('16:00')">
+
+                                    4:00 PM
+
+                                </button>
+
+                                <button onclick="selectHour('17:00')">
+
+                                    5:00 PM
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                        <button class="btn-next" onclick="irPaso(3)">
+
+                            Siguiente →
+
+                        </button>
+
+                    </div>
+
+
+                    <div id="paso3" class="hidden">
+
+                        <h3>
+
+                            Confirmar reserva
+
+                        </h3>
+
+                        <div class="confirm-box">
+
+                            <p id="res-servicio"></p>
+                            <p id="res-fecha"></p>
+                            <p id="res-hora"></p>
+
+                        </div>
+
+                        <button class="btn-confirm" onclick="abrirPago()">
+
+                            Pagar 💳
+
+                        </button>
+
+                    </div>
+
+
+                    <div id="paso4" class="hidden">
+
+                        <h2>
+
+                            ✔ Reserva Confirmada
+
+                        </h2>
+
+                        <div class="confirm-box">
+
+                            <p id="final-servicio"></p>
+                            <p id="final-fecha"></p>
+                            <p id="final-hora"></p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- AGENDA -->
+
+                <div id="agenda" class="vista hidden">
+
+                    <h2>
+
+                        Agendas Registradas
+
+                    </h2>
+
+                    <div class="agenda-container">
+
+
+                        <div class="agenda-right">
+
+                            <div class="calendar-card">
+
+                                <div id="agendaCalendar"></div>
+
+
+
+
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div id="pagoModal" class="pago-modal">
+
+            <div class="pago-box">
+
+                <h2>Pago</h2>
+
+                <p>
+                    Total:
+                    <strong id="pagoTotal">
+                        $0
+                    </strong>
+                </p>
+
+                <input id="tarjeta" placeholder="Número tarjeta" maxlength="16">
+
+                <input id="fechaPago" placeholder="MM/YYYY" maxlength="7">
+
+                <input id="cvv" placeholder="CVV" maxlength="3">
+
+                <div id="animacionPago"></div>
+
+                <button id="btnPagar" onclick="procesarPago()">
+
+                    Pagar
+
+                </button>
+
+                <button class="cancel" onclick="cerrarPago()">
+
+                    Cancelar
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- POPUP FONDO -->
+        <div id="popupFondo" class="popup-fondo hidden" onclick="cerrarPopup()">
+        </div>
+
+        <!-- POPUP RESERVA -->
+        <div id="infoReserva" class="hidden reserva-popup">
+
+            <h3>Reserva</h3>
+
+            <p id="popupServicio"></p>
+
+            <p id="popupFecha"></p>
+
+            <p id="popupHora"></p>
+
+            <p id="popupPrecio"></p>
+
+            <p>
+                ¿Desea eliminar la fecha asignada?
+            </p>
+
+            <div class="popup-buttons">
+
+                <button onclick="confirmarEliminar()">
+                    Sí
+                </button>
+
+                <button onclick="cerrarPopup()">
+                    No
+                </button>
+
+            </div>
+
+        </div>
+
+        <script src="{% static 'js/app.js' %}"></script>
+
+        <div class="barber-pole left"></div>
+        <div class="barber-pole right"></div>
+
+</body>
+
+</html>

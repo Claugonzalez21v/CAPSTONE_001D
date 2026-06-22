@@ -51,7 +51,23 @@ def login(request):
             request,
         "login.html")
 
+#===PANEL ADMIN===
 
+
+def panel_admin(request):
+
+    reservas = Reserva.objects.all().order_by(
+        "fecha",
+        "hora"
+    )
+
+    return render(
+        request,
+        "panel_admin.html",
+        {
+            "reservas": reservas
+        }
+    )
 
 # ===== REGISTRO =====
 
