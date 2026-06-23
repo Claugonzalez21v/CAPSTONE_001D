@@ -13,7 +13,7 @@
 </head>
 
 <body>
-
+    {% load humanize %}
     <div class="header">
         Panel Administrador
     </div>
@@ -50,8 +50,8 @@
                         <td>{{ reserva.servicio }}</td>
                         <td>{{ reserva.fecha }}</td>
                         <td>{{ reserva.hora }}</td>
-                        <td>Bs. {{ reserva.precio }}</td>
-
+                        <td> $ {{ reserva.precio|intcomma }}</td>
+                        <td>{{ reserva.creada|date:"d/m/Y H:i" }}</td>
 
                     </tr>
 
@@ -85,8 +85,7 @@
 
                 <button class="btn-volver" onclick="cerrarSesionAdmin()">
 
-                    Cerrar Session
-
+                    Cerrar Sesión
                 </button>
 
             </div>

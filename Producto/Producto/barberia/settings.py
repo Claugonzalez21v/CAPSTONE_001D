@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'reservas',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [
@@ -158,3 +159,4 @@ else:
 CSRF_TRUSTED_ORIGINS = [
     "https://capstone-001d.onrender.com"
 ]
+
