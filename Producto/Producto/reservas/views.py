@@ -151,10 +151,10 @@ def crearReserva(request):
             )
 
             lista_precios = {
-                "Caballero": 10000,
-                "Dama": 15000,
-                "Barba": 6000,
-                "Completo": 20000 }
+                "Caballero": 10.000,
+                "Dama": 15.000,
+                "Barba": 6.000,
+                "Completo": 20.000 }
 
             lista_precios.get(
             reserva.servicio,
