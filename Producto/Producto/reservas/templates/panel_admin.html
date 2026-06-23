@@ -50,7 +50,7 @@
                         <td>{{ reserva.servicio }}</td>
                         <td>{{ reserva.fecha|date:"d/m/Y" }}</td>
                         <td>{{ reserva.hora|time:"H:i" }}</td>
-                        <td>$ {{ reserva.precio|intcomma }}</td>
+                        <td>$ {{ reserva.precio|floatformat:0|intcomma }}</td>
                         <td>{{ reserva.creada|date:"d/m/Y H:i" }}</td>
                     </tr>
 
