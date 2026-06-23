@@ -48,11 +48,10 @@
 
                         <td>{{ reserva.usuario.username }}</td>
                         <td>{{ reserva.servicio }}</td>
-                        <td>{{ reserva.fecha }}</td>
-                        <td>{{ reserva.hora }}</td>
-                        <td> $ {{ reserva.precio|intcomma }}</td>
-                        <td>{{ reserva.fecha_creacion|date:"d/m/Y H:i" }}</td>
-
+                        <td>{{ reserva.fecha|date:"d/m/Y" }}</td>
+                        <td>{{ reserva.hora|time:"H:i" }}</td>
+                        <td>$ {{ reserva.precio|intcomma }}</td>
+                        <td>{{ reserva.creada|date:"d/m/Y H:i" }}</td>
                     </tr>
 
                     {% empty %}
