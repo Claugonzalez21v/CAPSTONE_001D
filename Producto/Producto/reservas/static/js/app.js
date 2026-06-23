@@ -254,10 +254,10 @@ function seleccionarServicio(tipo) {
 
     const listaPrecios = {
 
-        "Caballero": 10.000,
-        "Dama": 15.000,
-        "Barba": 6.000,
-        "Completo": 20.000
+        "Caballero": 10000,
+        "Dama": 15000,
+        "Barba": 6000,
+        "Completo": 20000
 
     };
 
