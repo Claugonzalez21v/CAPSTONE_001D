@@ -2,7 +2,7 @@ cd "C:\Users\gonza\Desktop\fase 1\Proyecto"
 
 git add .
 
-git commit -m "Actualización de Documentación  "
+git commit -m "Actualización de la pagina   "
 
 git push
 

@@ -30,14 +30,12 @@ class Reserva(models.Model):
 
     hora=models.TimeField()
 
-    precio=models.DecimalField(
-        max_digits=10,
-        decimal_places=2
-    )
+    precio=models.DecimalField( max_digits=10, decimal_places=2    )
 
     creada=models.DateTimeField(
         auto_now_add=True
     )
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
 
     @property
     def cumplida(self):
