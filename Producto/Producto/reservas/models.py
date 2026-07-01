@@ -35,7 +35,7 @@ class Reserva(models.Model):
     creada=models.DateTimeField(
         auto_now_add=True
     )
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    
 
     @property
     def cumplida(self):
