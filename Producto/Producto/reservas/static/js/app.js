@@ -399,6 +399,14 @@ function convertirHora(hora) {
         hora.includes("3:")
     )
         return 15;
+     if (
+        hora.includes("4:")
+    )
+        return 16;
+     if (
+        hora.includes("5:")
+    )
+        return 17;
     
 
     return 0;
