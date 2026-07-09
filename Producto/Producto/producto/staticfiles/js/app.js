@@ -2,7 +2,7 @@
 const stripe = Stripe("pk_test_51TdM7iPLsltGKLrGGuBxWZebNhIFhAK0OVc6X6rnPcbDxljrXq4Bf4OtAv0DkqdCf4Blsy5ufK1ujObJ80Cclphs00cXLH6paF");
 
 
-  
+
 let user = "Usuario";
 
 let servicio = "";
@@ -56,7 +56,7 @@ document.addEventListener(
 
         }
 
-       
+
 
         actualizarContador();
 
@@ -956,7 +956,7 @@ function abrirPago() {
         );
 
     document.getElementById("pagoTotal").innerText =
-"$" + precios.toLocaleString("es-CL");
+        "$" + precios.toLocaleString("es-CL");
 
 
     /* restaurar formulario */
@@ -1123,7 +1123,7 @@ async function procesarPago() {
         const BACKEND_STRIPE_URL = "https://capstone-001d.onrender.com";
 
         const response = await fetch(
-             "/create-payment-intent",
+            "/create-payment-intent",
             {
                 method: "POST",
                 headers: {
@@ -1173,12 +1173,17 @@ async function procesarPago() {
             },
             body: JSON.stringify({
                 servicio: servicio,
+                barbero: selectedBarbero,
                 fecha: selectedDate,
                 hora: selectedHour,
                 precio: precios
             })
         });
 
+        // NUEVO
+        await cargarHorarios();
+
+        inicializarCalendarios();
         agregarNotif(
             "Reserva creada para " +
             selectedDate +
@@ -1311,7 +1316,7 @@ function eliminarReserva(btn) {
 
 function logout() {
 
-    
+
 
     window.location.href = "/";
 

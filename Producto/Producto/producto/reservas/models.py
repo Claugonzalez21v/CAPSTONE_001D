@@ -14,31 +14,22 @@ class Reserva(models.Model):
 
     ]
 
-    usuario=models.ForeignKey(
-        User,
-        on_delete=models.CASCADE
-    )
+    
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    email = models.EmailField(blank=True, null=True)
+    servicio = models.CharField(max_length=50)
 
-    servicio=models.CharField(
-        max_length=100,
-        choices=SERVICIOS
-    )
+    barbero = models.CharField(max_length=100)
 
-    fecha=models.DateField()
+    fecha = models.DateField()
 
-    hora=models.TimeField()
+    hora = models.TimeField()
 
-    precio=models.DecimalField(
-        max_digits=10,
-        decimal_places=2
-    )
+    precio = models.DecimalField(max_digits=10, decimal_places=0)
 
-    creada=models.DateTimeField(
-        auto_now_add=True
-    )
+    cumplida = models.BooleanField(default=False)
 
+    creada = models.DateTimeField(auto_now_add=True)
     @property
     def cumplida(self):
         return self.fecha < date.today()

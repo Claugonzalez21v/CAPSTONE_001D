@@ -837,6 +837,7 @@ function bloquearHoras(reservas){
         .forEach(btn=>{
 
             btn.disabled=false;
+            btn.classList.remove("ocupada");
 
         });
 
@@ -1409,17 +1410,13 @@ function getCookie(nombre) {
 
 /* ===== Barbero ===== */
 
-function seleccionarBarbero(barbero, event) {
+function seleccionarBarbero(barbero,event){
 
     selectedBarbero = barbero;
 
     document
         .querySelectorAll(".barberos button")
-        .forEach(x => {
-
-            x.classList.remove("active");
-
-        });
+        .forEach(x=>x.classList.remove("active"));
 
     event.currentTarget.classList.add("active");
 
@@ -1431,6 +1428,8 @@ function seleccionarBarbero(barbero, event) {
         .getElementById("horaOverlay")
         .classList.remove("hidden");
 
+    // NUEVO
+    cargarHorarios();
 }
 
 function cerrarHoras() {
