@@ -23,7 +23,7 @@ document.addEventListener(
     "DOMContentLoaded",
     () => {
 
-        
+
 
         let nombre =
 
@@ -399,7 +399,7 @@ function convertirHora(hora) {
         hora.includes("3:")
     )
         return 15;
-    
+
 
     return 0;
 
@@ -944,7 +944,7 @@ function abrirPago() {
         );
 
     document.getElementById("pagoTotal").innerText =
-"$" + precios.toLocaleString("es-CL");
+        "$" + precios.toLocaleString("es-CL");
 
 
     /* restaurar formulario */
@@ -1111,7 +1111,7 @@ async function procesarPago() {
         const BACKEND_STRIPE_URL = "https://capstone-001d.onrender.com";
 
         const response = await fetch(
-             "/create-payment-intent/",
+            "/create-payment-intent/",
             {
                 method: "POST",
                 headers: {
@@ -1133,6 +1133,34 @@ async function procesarPago() {
 
         console.log("PaymentIntent creado:", data.clientSecret);
 
+        // Guardar la reserva
+        const guardar = await fetch("/guardar/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                servicio: servicio,
+                barbero: selectedBarbero,
+                fecha: selectedDate,
+                hora: selectedHour,
+                precio: precios
+            })
+        });
+
+        const resultado = await guardar.json();
+
+        if (!resultado.ok) {
+
+            mostrarAlerta(resultado.mensaje);
+
+            document.getElementById("btnPagar").disabled = false;
+
+            return;
+        }
+
+        // Solo ahora mostrar éxito
+
         document.getElementById("tarjeta").style.display = "none";
         document.getElementById("fechaPago").style.display = "none";
         document.getElementById("cvv").style.display = "none";
@@ -1140,32 +1168,31 @@ async function procesarPago() {
         document.querySelector(".cancel").style.display = "none";
 
         animacion.innerHTML = `
-            <div class="check"></div>
+    <div class="check"></div>
 
-            <h3>Pago enviado a Stripe</h3>
+    <h3>Pago realizado correctamente</h3>
 
-            <p>${servicio}</p>
-            <p>${selectedDate}</p>
-            <p>${selectedHour}</p>
-            <p>$${precios.toLocaleString("es-CL")}</p>
+    <p>${servicio}</p>
+    <p>${selectedBarbero}</p>
+    <p>${selectedDate}</p>
+    <p>${selectedHour}</p>
+    <p>$${precios.toLocaleString("es-CL")}</p>
 
-            <button onclick="irAgenda()">
-                Ir a mis agendas
-            </button>
-        `;
+    <button onclick="irAgenda()">
+        Ir a mis agendas
+    </button>
+`;
 
-        await fetch("/guardar/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                servicio: servicio,
-                fecha: selectedDate,
-                hora: selectedHour,
-                precio: precios
-            })
-        });
+        await cargarHorarios();
+        inicializarCalendarios();
+
+        agregarNotif(
+            `Reserva creada para ${selectedDate} a las ${selectedHour}`
+        );
+
+        await cargarHorarios();
+
+        inicializarCalendarios();
 
         agregarNotif(
             "Reserva creada para " +
@@ -1299,7 +1326,7 @@ function eliminarReserva(btn) {
 
 function logout() {
 
-  
+
     window.location.href = "";
 
 }

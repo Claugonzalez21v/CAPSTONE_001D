@@ -99,22 +99,22 @@ def registro(request):
 @login_required
 def app(request):
 
-    reservas=Reserva.objects.filter(
-        usuario=request.user,
-        fecha=request.GET["fecha"],
-        barbero=request.GET["barbero"]
+    reservas = Reserva.objects.filter(
+        usuario=request.user
+    ).order_by(
+        "fecha",
+        "hora"
     )
 
     return render(
         request,
         "app.html",
         {
-            "reservas":reservas
+            "reservas": reservas
         }
     )
 
 
-# ===== CREAR RESERVA =====
 
 @login_required
 def crearReserva(request):
@@ -238,44 +238,34 @@ import json
 
 @csrf_exempt
 @login_required
+@csrf_exempt
+@login_required
 def guardar_reserva(request):
 
     if request.method != "POST":
-        return JsonResponse({
-            "ok": False,
-            "mensaje": "Método no permitido."
-        }, status=405)
+        return JsonResponse({"ok": False}, status=405)
 
     data = json.loads(request.body)
 
-    # Datos recibidos
-    servicio = data["servicio"]
-    barbero = data["barbero"]
-    fecha = data["fecha"]
-    hora = data["hora"]
-    precio = data["precio"]
-
-    # Verificar si el horario ya está ocupado para ese barbero
     existe = Reserva.objects.filter(
-        barbero=barbero,
-        fecha=fecha,
-        hora=hora
+        fecha=data["fecha"],
+        hora=data["hora"],
+        barbero=data["barbero"]
     ).exists()
 
     if existe:
         return JsonResponse({
             "ok": False,
-            "mensaje": "Este horario ya fue reservado para ese barbero."
+            "mensaje": "Ese horario ya está reservado."
         })
 
-    # Crear la reserva
     reserva = Reserva.objects.create(
         usuario=request.user,
-        servicio=servicio,
-        barbero=barbero,
-        fecha=fecha,
-        hora=hora,
-        precio=precio
+        servicio=data["servicio"],
+        fecha=data["fecha"],
+        barbero=data["barbero"],
+        hora=data["hora"],
+        precio=data["precio"]
     )
 
     return JsonResponse({

@@ -209,29 +209,106 @@ from django.http import JsonResponse
 @login_required
 def calendarioReserva(request):
 
-    reservas=Reserva.objects.filter(
-        usuario=request.user
-    )
+    fecha = request.GET.get("fecha")
+    barbero = request.GET.get("barbero")
 
-    data=[]
+    reservas = Reserva.objects.all()
+
+    if fecha:
+        reservas = reservas.filter(fecha=fecha)
+
+    if barbero:
+        reservas = reservas.filter(barbero=barbero)
+
+    data = []
 
     for r in reservas:
 
         data.append({
 
-            "id":r.id,
-            "servicio":r.servicio,
+            "id": r.id,
+            "servicio": r.servicio,
             "barbero": r.barbero,
-            "fecha":str(r.fecha),
-            "hora":str(r.hora),
-            "precio":float(r.precio),
-            "cumplida":r.cumplida
+            "fecha": str(r.fecha),
+            "hora": str(r.hora),
+            "precio": float(r.precio),
+            "cumplida": r.cumplida
 
         })
 
     return JsonResponse({
 
-        "reservas":data
+        "reservas": data
+
+    })
+@login_required
+def calendarioReserva(request):
+
+    fecha = request.GET.get("fecha")
+    barbero = request.GET.get("barbero")
+
+    reservas = Reserva.objects.all()
+
+    if fecha:
+        reservas = reservas.filter(fecha=fecha)
+
+    if barbero:
+        reservas = reservas.filter(barbero=barbero)
+
+    data = []
+
+    for r in reservas:
+
+        data.append({
+
+            "id": r.id,
+            "servicio": r.servicio,
+            "barbero": r.barbero,
+            "fecha": str(r.fecha),
+            "hora": str(r.hora),
+            "precio": float(r.precio),
+            "cumplida": r.cumplida
+
+        })
+
+    return JsonResponse({
+
+        "reservas": data
+
+    })
+@login_required
+def calendarioReserva(request):
+
+    fecha = request.GET.get("fecha")
+    barbero = request.GET.get("barbero")
+
+    reservas = Reserva.objects.all()
+
+    if fecha:
+        reservas = reservas.filter(fecha=fecha)
+
+    if barbero:
+        reservas = reservas.filter(barbero=barbero)
+
+    data = []
+
+    for r in reservas:
+
+        data.append({
+
+            "id": r.id,
+            "servicio": r.servicio,
+            "barbero": r.barbero,
+            "fecha": str(r.fecha),
+            "hora": str(r.hora),
+            "precio": float(r.precio),
+            "cumplida": r.cumplida
+
+        })
+
+    return JsonResponse({
+
+        "reservas": data
 
     })
 
@@ -245,36 +322,49 @@ import json
 @login_required
 def guardar_reserva(request):
 
-    if request.method=="POST":
+    if request.method != "POST":
+        return JsonResponse({
+            "ok": False,
+            "mensaje": "Método no permitido."
+        }, status=405)
 
-        data=json.loads(
-            request.body
-        )
+    data = json.loads(request.body)
 
-        reserva=Reserva.objects.create(
+    existe = Reserva.objects.filter(
 
-           usuario=request.user,
-           servicio=data["servicio"],
-           fecha=data["fecha"],
-           barbero=data["barbero"],
-           hora=data["hora"],
-           precio=data["precio"]
+        fecha=data["fecha"],
+        hora=data["hora"],
+        barbero=data["barbero"]
 
-        )
+    ).exists()
+
+    if existe:
 
         return JsonResponse({
 
-            "ok":True,
-            "id":reserva.id
+            "ok": False,
+            "mensaje": "Ese horario ya fue reservado."
 
         })
 
+    reserva = Reserva.objects.create(
+
+        usuario=request.user,
+        servicio=data["servicio"],
+        fecha=data["fecha"],
+        barbero=data["barbero"],
+        hora=data["hora"],
+        precio=data["precio"]
+
+    )
+
     return JsonResponse({
 
-        "ok":False
+        "ok": True,
+        "id": reserva.id
 
     })
-
+    
 @login_required
 def eliminarReserva(request,id):
 

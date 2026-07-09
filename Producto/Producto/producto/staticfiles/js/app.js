@@ -27,7 +27,7 @@ document.addEventListener(
 
         sesion =
 
-            sessionStorage.getItem(
+            sessionStorage.getItem
 
 
         if (
@@ -1166,7 +1166,7 @@ async function procesarPago() {
             </button>
         `;
 
-        await fetch("/guardar/", {
+        const response = await fetch("/guardar/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -1179,6 +1179,16 @@ async function procesarPago() {
                 precio: precios
             })
         });
+
+        const resultado = await response.json();
+
+        if (!resultado.ok) {
+
+            mostrarAlerta(resultado.mensaje);
+
+            return;
+
+        }
 
         // NUEVO
         await cargarHorarios();

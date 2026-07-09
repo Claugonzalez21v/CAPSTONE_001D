@@ -836,21 +836,29 @@ function bloquearHoras(reservas){
         .querySelectorAll(".hora-buttons button")
         .forEach(btn=>{
 
-            btn.disabled=false;
+            btn.disabled = false;
             btn.classList.remove("ocupada");
 
         });
 
     reservas.forEach(r=>{
 
+        // Tomar solo HH:MM
+       //const horaReserva = r.hora.substring(0,5);
+
         document
             .querySelectorAll(".hora-buttons button")
             .forEach(btn=>{
 
-                if(btn.innerText==r.hora){
+                // Eliminar AM/PM si existe
+                const horaBoton = btn.innerText
+                    .replace(" AM","")
+                    .replace(" PM","")
+                    .trim();
 
-                    btn.disabled=true;
+                if(horaBoton === r.hora){
 
+                    btn.disabled = true;
                     btn.classList.add("ocupada");
 
                 }
@@ -860,7 +868,6 @@ function bloquearHoras(reservas){
     });
 
 }
-
 
 function abrirReserva(data) {
 
