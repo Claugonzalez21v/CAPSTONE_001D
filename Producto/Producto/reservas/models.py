@@ -35,6 +35,10 @@ class Reserva(models.Model):
     creada=models.DateTimeField(
         auto_now_add=True
     )
+    barbero = models.CharField(
+    max_length=100,
+    default="Sin asignar"
+)
     
 
     @property

@@ -6,7 +6,9 @@ let user = "Usuario";
 let servicio = "";
 let selectedDate = "";
 let selectedHour = "";
+let selectedBarbero = "";
 let precios = 0;
+
 
 let notificaciones =
 
@@ -23,7 +25,7 @@ document.addEventListener(
     "DOMContentLoaded",
     () => {
 
-        
+
 
         let nombre =
 
@@ -290,37 +292,21 @@ function seleccionarServicio(tipo) {
 
 
 /* ===== HORA ===== */
-
 function selectHour(h) {
 
     selectedHour = h;
-
-    document
-        .querySelectorAll(
-            ".hours button"
-        )
-        .forEach(x => {
-
-            x.classList.remove(
-                "active"
-            );
-
-        });
-
-    event.currentTarget
-        .classList.add(
-            "active"
-        );
 
     actualizarResumen();
 
 }
 
+
+
 function actualizarHoras() {
 
     let botones =
         document.querySelectorAll(
-            ".hours button"
+            ".hora-buttons button"
         );
 
     let ahora =
@@ -399,15 +385,15 @@ function convertirHora(hora) {
         hora.includes("3:")
     )
         return 15;
-     if (
+    if (
         hora.includes("4:")
     )
         return 16;
-     if (
+    if (
         hora.includes("5:")
     )
         return 17;
-    
+
 
     return 0;
 
@@ -441,6 +427,13 @@ function actualizarResumen() {
         (
             selectedDate || "-"
         );
+    
+    document
+        .getElementById(
+            "res-barbero"
+        )
+        .innerText =
+        "Barbero: " + (selectedBarbero || "-");    
 
 
     document
@@ -478,6 +471,7 @@ function irPaso(p) {
     if (
         p === 3 &&
         (
+            !selectedBarbero ||
             !selectedDate ||
             !selectedHour
         )
@@ -826,6 +820,13 @@ function abrirReserva(data) {
         "Fecha: " +
         (data.fecha || "-");
 
+    document
+        .getElementById(
+            "popupBarbero"
+        )
+        .innerText =
+        "Barbero: " +
+        (data.barbero || "-");
 
     document
         .getElementById(
@@ -952,7 +953,7 @@ function abrirPago() {
         );
 
     document.getElementById("pagoTotal").innerText =
-"$" + precios.toLocaleString("es-CL");
+        "$" + precios.toLocaleString("es-CL");
 
 
     /* restaurar formulario */
@@ -1119,7 +1120,7 @@ async function procesarPago() {
         const BACKEND_STRIPE_URL = "https://capstone-001d.onrender.com";
 
         const response = await fetch(
-             "/create-payment-intent/",
+            "/create-payment-intent/",
             {
                 method: "POST",
                 headers: {
@@ -1169,6 +1170,7 @@ async function procesarPago() {
             },
             body: JSON.stringify({
                 servicio: servicio,
+                barbero: selectedBarbero,
                 fecha: selectedDate,
                 hora: selectedHour,
                 precio: precios
@@ -1307,7 +1309,7 @@ function eliminarReserva(btn) {
 
 function logout() {
 
-  
+
     window.location.href = "";
 
 }
@@ -1336,5 +1338,114 @@ function getCookie(nombre) {
             .shift();
 
     }
+
+}
+
+/* ===== Barbero ===== */
+
+function seleccionarBarbero(barbero, event) {
+
+    selectedBarbero = barbero;
+
+    document
+        .querySelectorAll(".barberos button")
+        .forEach(x => {
+
+            x.classList.remove("active");
+
+        });
+
+    event.currentTarget.classList.add("active");
+
+    document
+        .getElementById("tituloBarbero")
+        .innerText = barbero;
+
+    document
+        .getElementById("horaOverlay")
+        .classList.remove("hidden");
+
+}
+
+function cerrarHoras() {
+
+    document
+        .getElementById("horaOverlay")
+        .classList.add("hidden");
+
+    document
+        .querySelectorAll(".hora-buttons button")
+        .forEach(btn => {
+            btn.classList.remove("selected");
+        });
+
+    let hoy = new Date();
+
+    let fechaHoy =
+        hoy.getFullYear() + "-" +
+        String(hoy.getMonth() + 1).padStart(2, "0") + "-" +
+        String(hoy.getDate()).padStart(2, "0");
+
+    document
+        .querySelectorAll(".hora-buttons button")
+        .forEach(btn => {
+
+            btn.disabled = false;
+            btn.style.opacity = "1";
+            btn.style.cursor = "pointer";
+
+            if (selectedDate === fechaHoy) {
+
+                let horaTexto =
+                    btn.innerText
+                        .replace(" AM", "")
+                        .replace(" PM", "");
+
+                let partes = horaTexto.split(":");
+
+                let hora = parseInt(partes[0]);
+
+                if (btn.innerText.includes("PM") && hora != 12)
+                    hora += 12;
+
+                if (btn.innerText.includes("AM") && hora == 12)
+                    hora = 0;
+
+                let fechaHora =
+                    new Date();
+
+                fechaHora.setHours(hora);
+                fechaHora.setMinutes(0);
+
+                if (fechaHora <= hoy) {
+
+                    btn.disabled = true;
+
+                    btn.style.opacity = ".4";
+
+                    btn.style.cursor = "not-allowed";
+
+                }
+
+            }
+
+        });
+}
+
+function selectHourModal(hora, event) {
+
+    document
+        .querySelectorAll(".hora-buttons button")
+        .forEach(btn => btn.classList.remove("selected"));
+
+    event.currentTarget.classList.add("selected");
+
+    setTimeout(() => {
+
+        selectHour(hora);
+
+        cerrarHoras();
+
+    }, 250);
 
 }

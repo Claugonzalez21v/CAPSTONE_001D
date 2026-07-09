@@ -10,8 +10,10 @@ class ReservaForm(forms.ModelForm):
 
         fields = [
             'servicio',
+            'barbero',
             'fecha',
-            'hora'
+            'hora',
+            'precio'
         ]
 
         widgets = {

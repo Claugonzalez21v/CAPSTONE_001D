@@ -1175,3 +1175,226 @@ height:auto !important;
 overflow:hidden;
 
 }
+
+/* ===== BARBEROS ===== */
+
+.barberos{
+
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    margin-left:30px;
+
+}
+
+.barberos button{
+
+    width:175px;
+    padding:15px;
+
+    border:none;
+    border-radius:12px;
+
+    background:#ff8080;
+
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.barberos button:hover{
+
+    background:#ff5f5f;
+    transform:translateY(-2px);
+
+}
+
+.barberos button.active{
+
+    background:#2ecc71;
+
+}
+
+.fecha-hora-container{
+
+    display:flex;
+    align-items:flex-start;
+    gap:35px;
+
+}
+
+/* ===== MODAL HORAS ===== */
+
+.hora-overlay{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:rgba(0,0,0,.45);
+
+display:flex;
+
+justify-content:center;
+align-items:center;
+
+z-index:999;
+
+}
+
+.hora-modal{
+
+background:white;
+
+padding:35px;
+
+border-radius:18px;
+
+width:360px;
+
+text-align:center;
+
+animation:zoomHora .25s ease;
+
+box-shadow:0 15px 40px rgba(0,0,0,.35);
+
+}
+
+@keyframes zoomHora{
+
+from{
+
+transform:scale(.8);
+
+opacity:0;
+
+}
+
+to{
+
+transform:scale(1);
+
+opacity:1;
+
+}
+
+}
+
+.hora-buttons{
+
+display:flex;
+
+flex-direction:column;
+
+gap:15px;
+
+margin:25px 0;
+
+}
+
+.hora-buttons button{
+
+background:#ff7f87;
+
+color:white;
+
+border:none;
+
+border-radius:12px;
+
+padding:15px;
+
+font-size:18px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.2s;
+
+}
+
+.hora-buttons button:hover{
+
+transform:scale(1.03);
+
+background:#ff6670;
+
+}
+
+#tituloBarbero{
+
+margin-top:15px;
+
+color:#2c3e50;
+
+}
+
+.cancel{
+
+    margin-top:20px;
+
+    background:#e74c3c;
+
+    color:white;
+
+    border:none;
+
+    border-radius:10px;
+
+    padding:12px 30px;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.cancel:hover{
+
+    background:#c0392b;
+
+    transform:translateY(-2px);
+
+}
+
+/* ===== HORA SELECCIONADA ===== */
+
+.hora-buttons button.selected{
+
+    background:#2ecc71 !important;
+
+    transform:scale(1.05);
+
+    box-shadow:0 0 18px rgba(46,204,113,.55);
+
+}
+
+.hora-buttons button.disabled{
+
+    background:#d0d0d0;
+
+    color:#777;
+
+    cursor:not-allowed;
+
+    box-shadow:none;
+
+    transform:none;
+
+    opacity:.8;
+
+}

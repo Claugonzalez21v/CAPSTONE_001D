@@ -221,6 +221,7 @@ def calendarioReserva(request):
 
             "id":r.id,
             "servicio":r.servicio,
+            "barbero": r.barbero,
             "fecha":str(r.fecha),
             "hora":str(r.hora),
             "precio":float(r.precio),
@@ -255,6 +256,7 @@ def guardar_reserva(request):
            usuario=request.user,
            servicio=data["servicio"],
            fecha=data["fecha"],
+           barbero=data["barbero"],
            hora=data["hora"],
            precio=data["precio"]
 

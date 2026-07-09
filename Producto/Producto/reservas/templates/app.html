@@ -42,14 +42,14 @@
                 Agenda de Hoy
 
             </div>
-            
+
             {% if request.user.is_staff %}
             <div class="nav-item" onclick="window.location.href='/panel_admin/'">
                 Panel Administración
             </div>
             {% endif %}
 
-           
+
             <div class="nav-item logout" onclick="window.location.href='/logout/'">
 
                 Cerrar sesión
@@ -193,49 +193,87 @@
 
                             </div>
 
-                            <div class="hours">
+                            <div class="barberos">
 
-                                <button onclick="selectHour('09:00')">
-
-                                    9:00 AM
-
+                                <button onclick="seleccionarBarbero('Pedro', event)">
+                                    Pedro
                                 </button>
 
-                                <button onclick="selectHour('10:00')">
-
-                                    10:00 AM
-
+                                <button onclick="seleccionarBarbero('David', event)">
+                                    David 
                                 </button>
 
-                                <button onclick="selectHour('11:00')">
-
-                                    11:00 AM
-
+                                <button onclick="seleccionarBarbero('Jermin', event)">
+                                    Jermin
                                 </button>
 
-                                <button onclick="selectHour('14:00')">
-
-                                    2:00 PM
-
+                                <button onclick="seleccionarBarbero('Carlos', event)">
+                                    Carlos
                                 </button>
 
-                                <button onclick="selectHour('15:00')">
+                            </div>
 
-                                    3:00 PM
+                            <div id="horaOverlay" class="hora-overlay hidden">
 
-                                </button>
+                                <div class="hora-modal">
 
-                                <button onclick="selectHour('16:00')">
+                                    <h2>
 
-                                    4:00 PM
+                                        Seleccionar horario
 
-                                </button>
+                                    </h2>
 
-                                <button onclick="selectHour('17:00')">
+                                    <h3 id="tituloBarbero">
 
-                                    5:00 PM
+                                        Barbero
 
-                                </button>
+                                    </h3>
+
+                                    <div class="hora-buttons">
+
+                                        <button data-hora="09:00" onclick="selectHourModal('09:00', event)">
+                                            9:00 AM
+                                        </button>
+
+                                        <button data-hora="10:00" onclick="selectHourModal('10:00', event)">
+                                            10:00 AM
+                                        </button>
+
+                                        <button data-hora="11:00" onclick="selectHourModal('11:00', event)">
+                                            11:00 AM
+                                        </button>
+
+                                        <button data-hora="14:00" onclick="selectHourModal('14:00', event)">
+                                            2:00 PM
+                                        </button>
+
+                                        <button data-hora="15:00" onclick="selectHourModal('15:00', event)">
+                                            3:00 PM
+                                        </button>
+
+                                        <button data-hora="16:00" onclick="selectHourModal('16:00', event)">
+                                            4:00 PM
+                                        </button>
+
+                                        <button data-hora="17:00" onclick="selectHourModal('17:00', event)">
+                                            5:00 PM
+                                        </button>
+
+                                        
+
+                                        
+
+                                        
+
+                                    </div>
+
+                                    <button class="cancel" onclick="cerrarHoras()">
+
+                                        Cancelar
+
+                                    </button>
+
+                                </div>
 
                             </div>
 
@@ -261,6 +299,7 @@
                         <div class="confirm-box">
 
                             <p id="res-servicio"></p>
+                            <p id="res-barbero"></p>
                             <p id="res-fecha"></p>
                             <p id="res-hora"></p>
 
@@ -286,9 +325,9 @@
                         <div class="confirm-box">
 
                             <p id="final-servicio"></p>
+                            <p id="final-barbero"></p>
                             <p id="final-fecha"></p>
                             <p id="final-hora"></p>
-
                         </div>
 
                     </div>
@@ -381,6 +420,8 @@
             <h3>Reserva</h3>
 
             <p id="popupServicio"></p>
+
+            <p id="popupBarbero"></p>
 
             <p id="popupFecha"></p>
 

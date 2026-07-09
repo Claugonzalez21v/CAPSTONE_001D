@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 
-<head>
+<head><meta charset="UTF-8">
 
-    {% load static %}
+    </head>{% load static %}
 
-    <meta charset="UTF-8">
+    
     <title>Panel Administrador</title>
 
     <link rel="stylesheet" href="{% static 'css/panel_admin.css' %}">
@@ -32,6 +32,7 @@
                     <tr>
                         <th>Cliente</th>
                         <th>Servicio</th>
+                        <th>Barbero</th>
                         <th>Fecha</th>
                         <th>Hora</th>
                         <th>Precio</th>
@@ -48,6 +49,7 @@
 
                         <td>{{ reserva.usuario.username }}</td>
                         <td>{{ reserva.servicio }}</td>
+                         <td>{{ reserva.barbero}}</td>
                         <td>{{ reserva.fecha|date:"d/m/Y" }}</td>
                         <td>{{ reserva.hora|time:"H:i" }}</td>
                         <td>$ {{ reserva.precio|floatformat:0|intcomma }}</td>
@@ -57,7 +59,7 @@
                     {% empty %}
 
                     <tr>
-                        <td colspan="6">
+                        <td colspan="7">
                             No existen reservas registradas
                         </td>
                     </tr>
