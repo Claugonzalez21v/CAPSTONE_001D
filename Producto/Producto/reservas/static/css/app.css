@@ -1195,7 +1195,7 @@ overflow:hidden;
     border:none;
     border-radius:12px;
 
-    background:#ff8080;
+    background:#4c6ef5;
 
     color:white;
     font-size:18px;
@@ -1209,14 +1209,14 @@ overflow:hidden;
 
 .barberos button:hover{
 
-    background:#ff5f5f;
+
     transform:translateY(-2px);
 
 }
 
 .barberos button.active{
 
-    background:#2ecc71;
+    background:#4c6ef5;
 
 }
 
@@ -1303,7 +1303,7 @@ margin:25px 0;
 
 .hora-buttons button{
 
-background:#ff7f87;
+background:#4c6ef5;
 
 color:white;
 
@@ -1327,7 +1327,7 @@ transition:.2s;
 
 transform:scale(1.03);
 
-background:#ff6670;
+background:#4c6ef5;
 
 }
 

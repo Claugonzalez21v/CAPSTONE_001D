@@ -100,7 +100,9 @@ def registro(request):
 def app(request):
 
     reservas=Reserva.objects.filter(
-        usuario=request.user
+        usuario=request.user,
+        fecha=request.GET["fecha"],
+        barbero=request.GET["barbero"]
     )
 
     return render(

@@ -794,6 +794,72 @@ function inicializarCalendarios() {
 
 let reservaSeleccionada = null;
 
+function abrirHorarios(){
+
+    if(!selectedBarbero){
+
+        mostrarAlerta("Seleccione un barbero");
+
+        return;
+
+    }
+
+    document
+        .getElementById("tituloBarbero")
+        .innerText = selectedBarbero;
+
+    document
+        .getElementById("horaOverlay")
+        .classList.remove("hidden");
+
+    cargarHorarios();
+
+}
+
+async function cargarHorarios(){
+
+    const response =
+        await fetch(
+            `/calendario/?fecha=${selectedDate}&barbero=${selectedBarbero}`
+        );
+
+    const data =
+        await response.json();
+
+    bloquearHoras(data.reservas);
+
+}
+
+function bloquearHoras(reservas){
+
+    document
+        .querySelectorAll(".hora-buttons button")
+        .forEach(btn=>{
+
+            btn.disabled=false;
+
+        });
+
+    reservas.forEach(r=>{
+
+        document
+            .querySelectorAll(".hora-buttons button")
+            .forEach(btn=>{
+
+                if(btn.innerText==r.hora){
+
+                    btn.disabled=true;
+
+                    btn.classList.add("ocupada");
+
+                }
+
+            });
+
+    });
+
+}
+
 
 function abrirReserva(data) {
 

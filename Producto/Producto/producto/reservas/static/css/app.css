@@ -138,7 +138,7 @@ display:none !important;
 }
 
 .hours button {
-    background:#4caf50;
+    background:#4c6ef5;
     color:white;
     border:none;
     padding:10px;
@@ -160,7 +160,7 @@ display:none !important;
 }
 
 .btn-confirm {
-    background:#4caf50;
+    background:#4c6ef5;
     color:white;
 }
 
@@ -219,7 +219,7 @@ display:none !important;
     padding:10px;
     border:none;
     border-radius:6px;
-    background:#4caf50;
+    background:#4c6ef5;
     color:white;
 }
 
@@ -316,7 +316,8 @@ display:none !important;
 
 /* ===== BOTÓN VERDE PRO ===== */
 .btn-confirm {
-    background:#2ecc71;
+    background:#4c6ef5;
+   
     color:white;
     border:none;
     padding:12px 20px;
@@ -326,7 +327,7 @@ display:none !important;
 }
 
 .btn-confirm:hover {
-    background:#27ae60;
+      background:#4c6ef5;
 }
 
 /* ===== MODAL CENTRADO ===== */
