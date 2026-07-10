@@ -1,1 +1,315 @@
 
+# 💈 ReservaFacil
+
+Sistema web para la gestión de reservas de una barbería, desarrollado con **Django**, **PostgreSQL**, **HTML**, **CSS**, **JavaScript** y **Stripe**.
+
+El proyecto permite a los clientes registrarse, iniciar sesión, reservar servicios, seleccionar un barbero, elegir horarios disponibles y realizar pagos mediante Stripe (Sandbox). Además, incorpora un panel de administración para gestionar todas las reservas.
+
+---
+
+# 📌 Características
+
+- ✅ Registro de usuarios
+- ✅ Inicio de sesión seguro
+- ✅ Gestión de reservas
+- ✅ Selección de servicios
+- ✅ Selección de barberos
+- ✅ Bloqueo automático de horarios ocupados
+- ✅ Integración con PostgreSQL
+- ✅ Pagos mediante Stripe Sandbox
+- ✅ Panel administrador
+- ✅ Despliegue en Render
+- ✅ Control de versiones con GitHub
+
+---
+
+# 🛠 Tecnologías Utilizadas
+
+## Frontend
+
+- HTML5
+- CSS3
+- JavaScript
+
+## Backend
+
+- Python
+- Django
+
+## Base de Datos
+
+- PostgreSQL
+
+## Servicios
+
+- Stripe Sandbox
+- Render
+
+## Control de Versiones
+
+- Git
+- GitHub
+
+---
+
+# 🏗 Arquitectura
+
+El proyecto utiliza una arquitectura **Cliente - Servidor** basada en el patrón **MVT (Model - View - Template)** propio de Django.
+
+```
+                Usuario
+                    │
+                    ▼
+      HTML • CSS • JavaScript
+                    │
+             Solicitudes HTTP
+                    │
+                    ▼
+            Django (Backend)
+      ┌─────────┼──────────┐
+      │         │          │
+ Autenticación Reservas  Stripe
+      │         │          │
+      └─────────┼──────────┘
+                    ▼
+              PostgreSQL
+                    │
+                    ▼
+              Django Admin
+```
+
+---
+
+# 📂 Estructura del Proyecto
+
+```
+Producto/
+
+│
+├── Producto/
+│     ├── settings.py
+│     ├── urls.py
+│     └── wsgi.py
+│
+├── reservas/
+│     ├── models.py
+│     ├── views.py
+│     ├── forms.py
+│     ├── urls.py
+│     └── admin.py
+│
+├── templates/
+│     ├── login.html
+│     ├── registro.html
+│     ├── app.html
+│     └── panel_admin.html
+│
+├── static/
+│     ├── css/
+│     ├── js/
+│     └── img/
+│
+├── requirements.txt
+│
+└── manage.py
+```
+
+---
+
+# 🗄 Modelo de Datos
+
+```
+Usuario
+│
+│ 1
+│
+│ N
+│
+Reserva
+-----------------------
+id
+usuario_id
+servicio
+barbero
+fecha
+hora
+precio
+creada
+```
+
+Cada usuario puede registrar múltiples reservas.
+
+---
+
+# 🚀 Instalación
+
+## Clonar el repositorio
+
+```bash
+git clone https://github.com/Claugonzalez21v/CAPSTONE_001D.git
+```
+
+Ingresar al proyecto
+
+```bash
+cd CAPSTONE_001D
+```
+
+Crear entorno virtual
+
+Windows
+
+```bash
+python -m venv venv
+```
+
+Activar entorno
+
+```bash
+venv\Scripts\activate
+```
+
+Instalar dependencias
+
+```bash
+pip install -r requirements.txt
+```
+
+Aplicar migraciones
+
+```bash
+python manage.py migrate
+```
+
+Ejecutar servidor
+
+```bash
+python manage.py runserver
+```
+
+---
+
+# ⚙ Variables de Entorno
+
+Crear un archivo `.env`
+
+```
+SECRET_KEY=
+
+DEBUG=True
+
+DATABASE_URL=
+
+STRIPE_SECRET_KEY=
+
+STRIPE_PUBLIC_KEY=
+```
+
+---
+
+# 💳 Stripe
+
+El proyecto utiliza Stripe en modo Sandbox.
+
+Para pruebas utilizar tarjetas de prueba oficiales de Stripe.
+
+No se realizan cobros reales.
+
+---
+
+# ☁ Despliegue
+
+La aplicación se encuentra desplegada utilizando:
+
+- Render
+- PostgreSQL
+- Variables de entorno
+
+---
+
+# 🧪 Funcionalidades
+
+✔ Registro
+
+✔ Inicio de sesión
+
+✔ Reservas
+
+✔ Selección de fecha
+
+✔ Selección de barbero
+
+✔ Bloqueo de horarios
+
+✔ Pago mediante Stripe
+
+✔ Panel Administrador
+
+✔ Agenda de reservas
+
+✔ Persistencia en PostgreSQL
+
+---
+
+# 📸 Capturas
+
+## Inicio de Sesión
+
+*(Agregar captura)*
+
+---
+
+## Panel Principal
+
+*(Agregar captura)*
+
+---
+
+## Selección de Barbero
+
+*(Agregar captura)*
+
+---
+
+## Calendario
+
+*(Agregar captura)*
+
+---
+
+## Pago Stripe
+
+*(Agregar captura)*
+
+---
+
+## Panel Administrador
+
+*(Agregar captura)*
+
+---
+
+# 📋 Metodología
+
+El proyecto fue desarrollado utilizando **Scrum**.
+
+Se gestionó mediante:
+
+- Sprint
+- Trello
+- Historias de Usuario
+- GitHub
+
+---
+
+# 👨‍💻 Autor
+
+**Claudio González**
+
+Proyecto desarrollado como parte del **Examen Transversal** de la carrera Analista Programador.
+
+---
+
+# 📄 Licencia
+
+Proyecto desarrollado con fines académicos.
